@@ -1,0 +1,55 @@
+export default class x_list extends HTMLLIElement {
+    
+    constructor({name, attrs = {}}){
+
+        super();
+        
+        this.style.cssText = `
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            list-style-type: none;
+        `;
+        
+        this.name = name;
+        if (attrs.data?.length > 0){
+            [...attrs.data].forEach((item, j)=>{
+                /* console.log(item['attrs']['name']); */
+                const ol = document.createElement('ol');
+                    ol.style.wordBreak = "break-word";
+                    ol.style.textAlign = "center";
+                    ol.style.padding = "4px";
+                    ol.style.margin = "0px";
+                    ol.style.border = "1px solid black";
+                ol.id = j;
+                if (false);
+                else if(typeof attrs.dataEntry === 'string'){
+                    ol.style.backgroundColor = `${item[attrs.dataEntry]}`
+                    ol.textContent = item[attrs.dataEntry];
+                }
+                else if(Array.isArray(attrs.data)){
+                    ol.style.backgroundColor = `${item[attrs.dataEntry]()}`
+                    ol.textContent = item[attrs.dataEntry]();
+                }
+                this.appendChild(ol)
+            })
+        }
+
+        if (attrs.sortable){
+            import('sortablejs').then(({Sortable})=>{
+                const the_x_list = this;
+                the_x_list.sortRef = Sortable.create(this, {
+                    ...attrs.sortable
+                })
+            })
+        }
+
+        return this;
+        
+    }
+
+    get getRef(){
+        return this.name;
+    }
+
+}
