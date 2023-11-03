@@ -10,10 +10,10 @@ export default class wc_gui extends HTMLElement {
             padding: 8px;
         `;
         if (container !== document.body){
-            container.appendChild(this)
+            container.prepend(this)
         }
         else {
-            document.body.appendChild(this)
+            document.body.prepend(this)
         }
 
         return this;
