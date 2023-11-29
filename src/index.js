@@ -1,4 +1,3 @@
-import './web-components/modular_styling.js';
 import './DOMconfigs.js';
 import { U, H } from './constants.js';
 import wc_container from './web-components/Container';
