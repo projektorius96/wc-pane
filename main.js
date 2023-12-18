@@ -4,6 +4,7 @@ const GUI = new HUD({container: document.body, minWidth: 15, position: 'right'})
     ///* DEV_NOTE # accessor_valueN, N defaults to 1,2,3..n */
     GUI.addGroup({name: 'slider', nodes: GUI.addSection({accessor: 'section', column: 2})})
     GUI.addGroup({name: 'describer', nodes: GUI.addSection({accessor: 'greet', column: 1})})
+    GUI.addGroup({name: 'layer-manager', nodes: GUI.addSection({accessor: 'slot'})})
 
 const rangeParams = {
     min: 1,
@@ -36,3 +37,20 @@ slider.section2.append(
     new Input({...checkboxer, type: 'checkbox'/* , attrs: {cboxScaling: 1.5} */})
 )
 GUI.find(checkboxer).on('change', (e)=>console.log(e.target.checked))
+/* === layerManager */
+const layerManager = GUI.find({name: 'layer-manager'}).children;
+layerManager.slot1.appendChild(
+    new Input.List({
+    name: "layer-manager", 
+    attrs: {
+        data: [{randomID: Math.random()}, {randomID: Math.random()}], 
+        dataEntry: "randomID",
+        sortable: {
+            animation: 150,
+            onChange: function(e){
+                console.log(e)
+            }
+        }
+    }
+    })
+)

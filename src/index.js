@@ -2,7 +2,7 @@ import './DOMconfigs.js';
 import { U, H } from './constants.js';
 import wc_container from './web-components/Container';
 import wc_input from './web-components/Input';
-import wc_label from './web-components/Label.js';
+import wc_label from './web-components/Label';
 import wc_list from './web-components/List';
 import wc_select from './web-components/Select';
 

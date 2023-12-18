@@ -3,7 +3,7 @@ export default class x_list extends HTMLLIElement {
     constructor({name, attrs = {}}){
 
         super();
-        
+
         this.style.cssText = `
             width: 100%;
             display: flex;
@@ -14,7 +14,6 @@ export default class x_list extends HTMLLIElement {
         this.name = name;
         if (attrs.data?.length > 0){
             [...attrs.data].forEach((item, j)=>{
-                /* console.log(item['attrs']['name']); */
                 const ol = document.createElement('ol');
                     ol.style.wordBreak = "break-word";
                     ol.style.textAlign = "center";
@@ -22,7 +21,7 @@ export default class x_list extends HTMLLIElement {
                     ol.style.margin = "0px";
                     ol.style.border = "1px solid black";
                 ol.id = j;
-                if (false);
+                /* if (false);
                 else if(typeof attrs.dataEntry === 'string'){
                     ol.style.backgroundColor = `${item[attrs.dataEntry]}`
                     ol.textContent = item[attrs.dataEntry];
@@ -30,26 +29,29 @@ export default class x_list extends HTMLLIElement {
                 else if(Array.isArray(attrs.data)){
                     ol.style.backgroundColor = `${item[attrs.dataEntry]()}`
                     ol.textContent = item[attrs.dataEntry]();
-                }
+                } */
+                ol.textContent = item[attrs.dataEntry]
                 this.appendChild(ol)
             })
         }
 
         if (attrs.sortable){
             import('sortablejs').then(({Sortable})=>{
-                const the_x_list = this;
-                the_x_list.sortRef = Sortable.create(this, {
+                const { el } = Sortable.create(this, {
                     ...attrs.sortable
                 })
+                return (
+                    el
+                )
             })
         }
 
-        return this;
+        /* return this; */
         
     }
 
-    get getRef(){
+    /* get getRef(){
         return this.name;
-    }
+    } */
 
 }
