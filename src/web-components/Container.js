@@ -5,7 +5,7 @@ export default class wc_gui extends HTMLElement {
         this.style.cssText = `
             position: absolute;
                 z-index:999;
-            justify-self: ${(document.body.style.display = 'grid') && position};
+            justify-self: ${(container.style.display = 'grid') && position};
             min-width: ${minWidth}%;
             border: 2px solid black;
             border-radius: 8px;
