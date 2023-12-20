@@ -2,7 +2,7 @@ export default class wc_gui extends HTMLElement {
 
     constructor({container, position = 'start', minWidth = 20}){
         super();
-        this.style.cssText = `
+        this.style.cssText = /* style */`
             position: absolute;
                 z-index:999;
             justify-self: ${(container.style.display = 'grid') && position};
@@ -43,7 +43,7 @@ export default class wc_gui extends HTMLElement {
     
             }).map((__HTMLSectionElement, N)=>{
 
-                __HTMLSectionElement.style.cssText = `
+                __HTMLSectionElement.style.cssText = /* style */`
                     display: flex;
                     flex-direction: row;
                 `;
@@ -63,7 +63,7 @@ export default class wc_gui extends HTMLElement {
     addGroup({name, nodes = [document.createElement('template')]}){
 
         const legend = document.createElement('legend');
-            legend.style.cssText = `
+            legend.style.cssText = /* style */`
                 position: relative;
                 top: 2px;
                 background-color: black;

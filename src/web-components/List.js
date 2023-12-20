@@ -4,7 +4,7 @@ export default class x_list extends HTMLLIElement {
 
         super();
 
-        this.style.cssText = `
+        this.style.cssText = /* style */`
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -21,15 +21,16 @@ export default class x_list extends HTMLLIElement {
                     ol.style.margin = "0px";
                     ol.style.border = "1px solid black";
                 ol.id = j;
-                /* if (false);
-                else if(typeof attrs.dataEntry === 'string'){
-                    ol.style.backgroundColor = `${item[attrs.dataEntry]}`
-                    ol.textContent = item[attrs.dataEntry];
-                }
-                else if(Array.isArray(attrs.data)){
-                    ol.style.backgroundColor = `${item[attrs.dataEntry]()}`
-                    ol.textContent = item[attrs.dataEntry]();
-                } */
+                // // DEV_NOTE # Konva.js-specific configuration adoption
+                // /* if (false);
+                // else if(typeof attrs.dataEntry === 'string'){
+                //     ol.style.backgroundColor = `${item[attrs.dataEntry]}`
+                //     ol.textContent = item[attrs.dataEntry];
+                // }
+                // else if(Array.isArray(attrs.data)){
+                //     ol.style.backgroundColor = `${item[attrs.dataEntry]()}`
+                //     ol.textContent = item[attrs.dataEntry]();
+                // } */
                 ol.textContent = item[attrs.dataEntry]
                 this.appendChild(ol)
             })
@@ -45,13 +46,7 @@ export default class x_list extends HTMLLIElement {
                 )
             })
         }
-
-        /* return this; */
         
     }
-
-    /* get getRef(){
-        return this.name;
-    } */
 
 }

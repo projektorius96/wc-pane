@@ -1,4 +1,4 @@
-import setDefaultStyling from "./modular_styling.js";
+import { setDefaultStyling } from "./wc-utils.js";
 export default class x_select extends HTMLSelectElement {
 
     constructor({name, attrs}){
@@ -7,6 +7,7 @@ export default class x_select extends HTMLSelectElement {
         setDefaultStyling.call(this)
 
         this.name = name || `default-${x_select.name.split(U).at(-1)/* === select */}`;
+        
         if (attrs.data?.length > 0){
             [...attrs.data].forEach((item, j)=>{
                 if (j === 0){
@@ -26,11 +27,7 @@ export default class x_select extends HTMLSelectElement {
                 new Option(`WARNING: ${name} is empty ${Array.name}`)
             )
         }
-        return this;
-    }
-
-    get getRef(){
-        return this.name;
+        
     }
 
 }

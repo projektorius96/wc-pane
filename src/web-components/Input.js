@@ -1,5 +1,4 @@
-import setDefaultStyling from "./modular_styling.js";
-import { setAttributes } from "./utils.js";
+import { setDefaultStyling, setAttributes } from "./wc-utils.js";
 export default class wc_input extends HTMLInputElement {
 
     constructor({name, type, attrs}){

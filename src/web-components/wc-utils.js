@@ -1,4 +1,4 @@
-export default function setDefaultStyling(type){
+export function setDefaultStyling(type){
 
     defaults:;
     this.style.width = "100%";
@@ -10,4 +10,10 @@ export default function setDefaultStyling(type){
         break;
     }
 
+}
+
+export function setAttributes(el, attrs) {
+    for (var key in attrs) {
+        el.setAttribute(key, attrs[key]);
+    }
 }
