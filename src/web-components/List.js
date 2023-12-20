@@ -12,38 +12,20 @@ export default class x_list extends HTMLLIElement {
         `;
         
         this.name = name;
-        if (attrs.data?.length > 0){
-            [...attrs.data].forEach((item, j)=>{
-                const ol = document.createElement('ol');
-                    ol.style.wordBreak = "break-word";
-                    ol.style.textAlign = "center";
-                    ol.style.padding = "4px";
-                    ol.style.margin = "0px";
-                    ol.style.border = "1px solid black";
-                ol.id = j;
-                // // DEV_NOTE # Konva.js-specific configuration adoption
-                // /* if (false);
-                // else if(typeof attrs.dataEntry === 'string'){
-                //     ol.style.backgroundColor = `${item[attrs.dataEntry]}`
-                //     ol.textContent = item[attrs.dataEntry];
-                // }
-                // else if(Array.isArray(attrs.data)){
-                //     ol.style.backgroundColor = `${item[attrs.dataEntry]()}`
-                //     ol.textContent = item[attrs.dataEntry]();
-                // } */
-                ol.textContent = item[attrs.dataEntry]
-                this.appendChild(ol)
+        // DEV_NOTE # if block accommodated particularly towards project:konva-layers
+        if (attrs.loopData[1]?.length > 0){
+            [...attrs.loopData[1]].forEach((item, j)=>{
+                attrs.loopData[0].call(this, item, j)
             })
         }
 
-        if (attrs.sortable){
+        if (attrs.sortableList){
             import('sortablejs').then(({Sortable})=>{
-                const { el } = Sortable.create(this, {
-                    ...attrs.sortable
-                })
                 return (
-                    el
-                )
+                    Sortable.create(this, {
+                        ...attrs.sortableList
+                    }).el
+                );
             })
         }
         
