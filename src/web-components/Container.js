@@ -83,6 +83,10 @@ export default class wc_gui extends HTMLElement {
                 fieldset
             )
 
+            return {
+                name
+            }
+
     }
 
 }

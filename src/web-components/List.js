@@ -21,11 +21,9 @@ export default class x_list extends HTMLLIElement {
 
         if (attrs.sortableList){
             import('sortablejs').then(({Sortable})=>{
-                return (
-                    Sortable.create(this, {
-                        ...attrs.sortableList
-                    }).el
-                );
+                Sortable.create(this, {
+                    ...attrs.sortableList
+                })
             })
         }
         
