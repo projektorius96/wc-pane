@@ -10,6 +10,7 @@ export default class wc_gui extends HTMLElement {
             border: 2px solid black;
             border-radius: 8px;
             padding: 8px;
+            background-color: #d8d8d8;
         `;
         if (container !== document.body){
             container.prepend(this)
