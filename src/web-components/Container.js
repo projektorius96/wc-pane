@@ -60,7 +60,7 @@ export default class wc_gui extends HTMLElement {
 
     }
 
-    addGroup({name, nodes = [document.createElement('template')]}){
+    addGroup({name, override_label = '', nodes = [document.createElement('template')]}){
 
         const legend = document.createElement('legend');
             legend.style.cssText = /* style */`
@@ -70,7 +70,7 @@ export default class wc_gui extends HTMLElement {
                 color: white;
                 border-radius: 1em;
             `;
-            legend.textContent = name;
+            legend.textContent = override_label || name;
         const fieldset = document.createElement('fieldset');
             /* fieldset.style.cssText = ``; */
             fieldset.name = name;
