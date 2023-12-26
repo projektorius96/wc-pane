@@ -33,7 +33,7 @@ export default class wc_gui extends HTMLElement {
 
     }
 
-    addSection({accessor, column = 1}){
+    addSection({accessor, flex_direction = "column", column = 1}){
 
         return (
             [...new Array(column).fill(HTMLTemplateElement)].map((_HTMLSectionElement)=>{
@@ -46,7 +46,7 @@ export default class wc_gui extends HTMLElement {
 
                 __HTMLSectionElement.style.cssText = /* style */`
                     display: flex;
-                    flex-direction: column;
+                    flex-direction: ${flex_direction};
                 `;
 
                 __HTMLSectionElement.setAttribute('id', `${accessor}${1+N}`);
