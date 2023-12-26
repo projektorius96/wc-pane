@@ -3,6 +3,7 @@ export function setDefaultStyling(type){
     defaults:;
     this.style.width = "100%";
     this.style.border = "1px dashed black";
+    this.style.margin = 0;
 
     switch(type){
         case 'text':

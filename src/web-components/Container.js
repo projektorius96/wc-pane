@@ -46,7 +46,7 @@ export default class wc_gui extends HTMLElement {
 
                 __HTMLSectionElement.style.cssText = /* style */`
                     display: flex;
-                    flex-direction: row;
+                    flex-direction: column;
                 `;
 
                 __HTMLSectionElement.setAttribute('id', `${accessor}${1+N}`);
@@ -73,7 +73,9 @@ export default class wc_gui extends HTMLElement {
             `;
             legend.textContent = override_label || name;
         const fieldset = document.createElement('fieldset');
-            /* fieldset.style.cssText = ``; */
+            fieldset.style.cssText = /* style */`
+                margin: 0px;
+            `;
             fieldset.name = name;
             fieldset.appendChild(legend)
             fieldset.append(
