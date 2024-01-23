@@ -19,6 +19,32 @@ export default class wc_gui extends HTMLElement {
             document.body.prepend(this)
         }
 
+        let elementReleased = true; /* as though just exit mouseup */
+        function mousemove({mousedown}){
+            document.body.addEventListener(mouseup.name, mouseup.bind(this, {[mousemove.name] : {
+                target: mousedown.target
+            }}))
+        }
+        function mouseup({mousemove}, e){
+            if (mousemove.target !== this){
+                this.removeEventListener(mousemove.name, mousemove)
+            }
+            console.log(mousemove, e.pageX, e.pageY);
+            /* console.log(elementReleased === false); */
+            /* elementReleased = !elementReleased */
+        }
+        function mousedown(e){
+            e.preventDefault()
+            if (elementReleased) {
+                elementReleased = !elementReleased
+                this.addEventListener(mousemove.name, mousemove.bind(this, {[mousedown.name] : {
+                    target: e.target
+                }}))
+            }
+        }
+
+        this.on(mousedown.name, mousedown)
+        /* this.on(mouseup.name, mouseup) */
         return this;
 
     }
