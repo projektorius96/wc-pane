@@ -1,4 +1,4 @@
-export default class x_list extends HTMLLIElement {
+export default class wc_list extends HTMLLIElement {
     
     constructor({name, attrs = {}}){
 

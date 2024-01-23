@@ -1,5 +1,5 @@
-import { setDefaultStyling } from "./wc-utils.js";
-export default class x_select extends HTMLSelectElement {
+import { setDefaultStyling } from "./global.css.js";
+export default class wc_select extends HTMLSelectElement {
 
     constructor({name, attrs}){
         

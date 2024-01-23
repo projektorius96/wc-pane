@@ -1,4 +1,11 @@
-import { setDefaultStyling, setAttributes } from "./wc-utils.js";
+import { setDefaultStyling } from "./global.css.js";
+
+function setAttributes(el, attrs) {
+    for (var key in attrs) {
+        el.setAttribute(key, attrs[key]);
+    }
+}
+
 export default class wc_input extends HTMLInputElement {
 
     constructor({name, type, attrs}){

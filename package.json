@@ -1,7 +1,7 @@
 {
   "name": "wc-pane",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "vite": "^4.4.5"
+    "vite": "^5.0.12"
   },
   "dependencies": {
     "sortablejs": "^1.15.0"

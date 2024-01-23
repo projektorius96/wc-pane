@@ -43,7 +43,7 @@ layerManager.slot1.appendChild(
     new Input.List({
     name: "layer-manager", 
     attrs: {
-        data: [{randomID: Math.random()}, {randomID: Math.random()}], 
+        loopData: [{randomID: Math.random()}, {randomID: Math.random()}], 
         dataEntry: "randomID",
         sortable: {
             animation: 150,
