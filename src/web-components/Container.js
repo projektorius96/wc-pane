@@ -20,7 +20,9 @@ export default class wc_gui extends HTMLElement {
         }
 
         let elementReleased = true; /* as though just exit mouseup */
-        function mousemove({mousedown}){
+        function mousemove({mousedown}, e){
+            this.style.left = `${e.pageX}px`;
+            this.style.top = `${e.pageY}px`;
             document.body.addEventListener(mouseup.name, mouseup.bind(this, {[mousemove.name] : {
                 target: mousedown.target
             }}))
@@ -29,7 +31,6 @@ export default class wc_gui extends HTMLElement {
             if (mousemove.target !== this){
                 this.removeEventListener(mousemove.name, mousemove)
             }
-            console.log(mousemove, e.pageX, e.pageY);
             /* console.log(elementReleased === false); */
             /* elementReleased = !elementReleased */
         }
