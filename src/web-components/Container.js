@@ -19,33 +19,29 @@ export default class wc_gui extends HTMLElement {
             document.body.prepend(this)
         }
 
-        let elementReleased = true; /* as though just exit mouseup */
-        function mousemove({mousedown}, e){
-            this.style.left = `${e.pageX}px`;
-            this.style.top = `${e.pageY}px`;
-            document.body.addEventListener(mouseup.name, mouseup.bind(this, {[mousemove.name] : {
-                target: mousedown.target
-            }}))
+        let last_pair_of_coords;
+        function mousemove(e){
+            console.log("Va", this);
+            /* console.log("IN ACTION"); */
+            last_pair_of_coords = new Array(...[e.pageX, e.pageY])
+            /* console.log("AFTER ACTION"); */
         }
-        function mouseup({mousemove}, e){
-            if (mousemove.target !== this){
-                this.removeEventListener(mousemove.name, mousemove)
-            }
-            /* console.log(elementReleased === false); */
-            /* elementReleased = !elementReleased */
+        function mouseup(e){
+            console.log(this);
+            this.removeEventListener(mousemove.name, mousemove)
+            /* console.log("UP", last_pair_of_coords); */
+            this.style.left = `${last_pair_of_coords[0]}px`;
+            //this.style.right = `${e.pageX/*  - this.style.left */}px`;
+            this.style.top = `${last_pair_of_coords[1]}px`;
+            //this.style.bottom = `${e.pageY/*  - this.style.top */}px`;
         }
         function mousedown(e){
             e.preventDefault()
-            if (elementReleased) {
-                elementReleased = !elementReleased
-                this.addEventListener(mousemove.name, mousemove.bind(this, {[mousedown.name] : {
-                    target: e.target
-                }}))
-            }
+            this.addEventListener(mousemove.name, mousemove/* .bind(this) */)
+            console.log("DOWN");
         }
-
-        this.on(mousedown.name, mousedown)
-        /* this.on(mouseup.name, mouseup) */
+        document.on(mousedown.name, mousedown/* .bind(this) */)
+        document.on(mouseup.name, mouseup.bind(this))
         return this;
 
     }
