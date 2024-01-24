@@ -1,3 +1,4 @@
+import initDraggable from "./modules/draggable";
 export default class wc_gui extends HTMLElement {
 
     constructor({container, position = 'start', minWidth = 20, draggable = false}){
@@ -5,6 +6,7 @@ export default class wc_gui extends HTMLElement {
         super();
         
         this.style.cssText = /* style */`
+        user-select: none;
             position: absolute;
                 z-index:999;
             justify-self: ${(container.style.display = 'grid') && position};
@@ -16,27 +18,7 @@ export default class wc_gui extends HTMLElement {
         `;
 
         if(draggable){
-            let guiElement = null;
-            function mousemove(e){
-                    guiElement.style.left = `${e.pageX}px`;
-                    guiElement.style.top = `${e.pageY}px`;
-            }
-            function mouseup(){
-                document.removeEventListener(mousemove.name, mousemove)
-                guiElement = null;
-            }
-            function mousedown(e){
-                if (guiElement === null) {
-                    guiElement = e.currentTarget;
-                }
-                const { altKey } = e;
-                if    ( altKey )   {
-                    e.preventDefault()
-                    document.addEventListener(mousemove.name, mousemove)
-                } 
-            }
-            this.on(mousedown.name, mousedown)
-            document.on(mouseup.name, mouseup)
+            initDraggable(this)
         }
 
         if (container !== document.body){
