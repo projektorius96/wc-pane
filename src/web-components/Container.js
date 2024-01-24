@@ -19,27 +19,31 @@ export default class wc_gui extends HTMLElement {
             document.body.prepend(this)
         }
 
-        let GUI = this;
-        let last_pair_of_coords;
+        let guiElement = null;
         function mousemove(e){
-            GUI.style.left = `${e.pageX}px`;
-            GUI.style.top = `${e.pageY}px`;
-            last_pair_of_coords = new Array(...[e.pageX, e.pageY])
+            // # herein keyword  "this" can be anything, even #document (<html>)
+            /* if (guiElement !== this){ */
+                guiElement.style.left = `${e.pageX}px`;
+                guiElement.style.top = `${e.pageY}px`;
+            /* } */
         }
-        function mouseup(e){
-            console.log(e);
+        function mouseup(){
+            console.log(mouseup.name);
             document.removeEventListener(mousemove.name, mousemove)
+            guiElement = null;
         }
         function mousedown(e){
-            /* console.log(e.currentTarget); */// #document
+            if (guiElement === null) {
+                guiElement = e.currentTarget;
+            }
             const { altKey } = e;
             if    ( altKey )   {
                 e.preventDefault()
-                e.currentTarget.addEventListener(mousemove.name, mousemove)
+                document.addEventListener(mousemove.name, mousemove)
             } 
         }
-        document.on(mousedown.name, mousedown.bind(this))
-        document.on(mouseup.name, mouseup/* .bind(this) */)
+        this.on(mousedown.name, mousedown)
+        document.on(mouseup.name, mouseup)
         return this;
 
     }
