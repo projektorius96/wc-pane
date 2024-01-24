@@ -12,20 +12,11 @@ export default class wc_gui extends HTMLElement {
             padding: 8px;
             background-color: #d8d8d8;
         `;
-        if (container !== document.body){
-            container.prepend(this)
-        }
-        else {
-            document.body.prepend(this)
-        }
 
         let guiElement = null;
         function mousemove(e){
-            // # herein keyword  "this" can be anything, even #document (<html>)
-            /* if (guiElement !== this){ */
                 guiElement.style.left = `${e.pageX}px`;
                 guiElement.style.top = `${e.pageY}px`;
-            /* } */
         }
         function mouseup(){
             console.log(mouseup.name);
@@ -44,6 +35,13 @@ export default class wc_gui extends HTMLElement {
         }
         this.on(mousedown.name, mousedown)
         document.on(mouseup.name, mouseup)
+
+        if (container !== document.body){
+            container.prepend(this)
+        }
+        else {
+            document.body.prepend(this)
+        }
         return this;
 
     }
