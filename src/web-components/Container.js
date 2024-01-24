@@ -19,29 +19,27 @@ export default class wc_gui extends HTMLElement {
             document.body.prepend(this)
         }
 
+        let GUI = this;
         let last_pair_of_coords;
         function mousemove(e){
-            console.log("Va", this);
-            /* console.log("IN ACTION"); */
+            GUI.style.left = `${e.pageX}px`;
+            GUI.style.top = `${e.pageY}px`;
             last_pair_of_coords = new Array(...[e.pageX, e.pageY])
-            /* console.log("AFTER ACTION"); */
         }
         function mouseup(e){
-            console.log(this);
-            this.removeEventListener(mousemove.name, mousemove)
-            /* console.log("UP", last_pair_of_coords); */
-            this.style.left = `${last_pair_of_coords[0]}px`;
-            //this.style.right = `${e.pageX/*  - this.style.left */}px`;
-            this.style.top = `${last_pair_of_coords[1]}px`;
-            //this.style.bottom = `${e.pageY/*  - this.style.top */}px`;
+            console.log(e);
+            document.removeEventListener(mousemove.name, mousemove)
         }
         function mousedown(e){
-            e.preventDefault()
-            this.addEventListener(mousemove.name, mousemove/* .bind(this) */)
-            console.log("DOWN");
+            /* console.log(e.currentTarget); */// #document
+            const { altKey } = e;
+            if    ( altKey )   {
+                e.preventDefault()
+                e.currentTarget.addEventListener(mousemove.name, mousemove)
+            } 
         }
-        document.on(mousedown.name, mousedown/* .bind(this) */)
-        document.on(mouseup.name, mouseup.bind(this))
+        document.on(mousedown.name, mousedown.bind(this))
+        document.on(mouseup.name, mouseup/* .bind(this) */)
         return this;
 
     }
