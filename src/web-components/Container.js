@@ -1,7 +1,9 @@
 export default class wc_gui extends HTMLElement {
 
-    constructor({container, position = 'start', minWidth = 20}){
+    constructor({container, position = 'start', minWidth = 20, draggable = false}){
+        
         super();
+        
         this.style.cssText = /* style */`
             position: absolute;
                 z-index:999;
@@ -13,28 +15,29 @@ export default class wc_gui extends HTMLElement {
             background-color: #d8d8d8;
         `;
 
-        let guiElement = null;
-        function mousemove(e){
-                guiElement.style.left = `${e.pageX}px`;
-                guiElement.style.top = `${e.pageY}px`;
-        }
-        function mouseup(){
-            console.log(mouseup.name);
-            document.removeEventListener(mousemove.name, mousemove)
-            guiElement = null;
-        }
-        function mousedown(e){
-            if (guiElement === null) {
-                guiElement = e.currentTarget;
+        if(draggable){
+            let guiElement = null;
+            function mousemove(e){
+                    guiElement.style.left = `${e.pageX}px`;
+                    guiElement.style.top = `${e.pageY}px`;
             }
-            const { altKey } = e;
-            if    ( altKey )   {
-                e.preventDefault()
-                document.addEventListener(mousemove.name, mousemove)
-            } 
+            function mouseup(){
+                document.removeEventListener(mousemove.name, mousemove)
+                guiElement = null;
+            }
+            function mousedown(e){
+                if (guiElement === null) {
+                    guiElement = e.currentTarget;
+                }
+                const { altKey } = e;
+                if    ( altKey )   {
+                    e.preventDefault()
+                    document.addEventListener(mousemove.name, mousemove)
+                } 
+            }
+            this.on(mousedown.name, mousedown)
+            document.on(mouseup.name, mouseup)
         }
-        this.on(mousedown.name, mousedown)
-        document.on(mouseup.name, mouseup)
 
         if (container !== document.body){
             container.prepend(this)
@@ -42,6 +45,7 @@ export default class wc_gui extends HTMLElement {
         else {
             document.body.prepend(this)
         }
+        
         return this;
 
     }
