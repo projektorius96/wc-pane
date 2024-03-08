@@ -1,4 +1,4 @@
-import { setDefaultStyling } from "../global.css.js";
+import { setStyling } from "./index.css.js";
 
 export const wc_input = [...import.meta.url.split('/').reverse()][1];
 customElements.define(wc_input, class extends HTMLInputElement {
@@ -7,24 +7,20 @@ customElements.define(wc_input, class extends HTMLInputElement {
 
         super();
 
-        setDefaultStyling.call(this, type)
-        
-        setAttributes(this, attrs)
-        this.name = name || type;
-        this.type = type || 'range';
-        
-        switch(type){
-            case 'checkbox':
-                this.style.transform = `scale(${attrs?.cboxScaling || 1.24})`;
-                break;
-            default:;
+        if( setStyling.call(this, type, attrs) ){
+
+            setAttributes(this, attrs)
+            this.name = name || type;
+            this.type = type || 'range';
+
         }
 
         return this;
 
     }
 
-},
+}
+, 
 {
     extends: HTMLElement.extends(HTMLInputElement)
 })
