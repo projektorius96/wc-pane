@@ -15,7 +15,8 @@ customElements.define(wc_select, class extends HTMLSelectElement {
         
     }
 
-}, 
+}
+, 
 {
     extends: HTMLElement.extends?.(HTMLSelectElement)
 })
