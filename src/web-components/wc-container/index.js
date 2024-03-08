@@ -1,6 +1,6 @@
-import initDraggable from "./modules/draggable";
-export default class wc_gui extends HTMLElement {
-
+export const wc_container = [...import.meta.url.split('/').reverse()][1];
+customElements.define(wc_container, class extends HTMLElement {
+    
     constructor({container, position = 'start', minWidth = 20, draggable = false}){
         
         super();
@@ -18,7 +18,7 @@ export default class wc_gui extends HTMLElement {
         `;
 
         if(draggable){
-            initDraggable(this)
+            enableDraggingTo(this)
         }
 
         if (container !== document.body){
@@ -101,4 +101,28 @@ export default class wc_gui extends HTMLElement {
 
     }
 
+})
+
+function enableDraggingTo(thisArg){
+    let guiElement = null;
+    function mousemove(e){
+            guiElement.style.left = `${e.pageX}px`;
+            guiElement.style.top = `${e.pageY}px`;
+    }
+    function mouseup(){
+        document.removeEventListener(mousemove.name, mousemove)
+        guiElement = null;
+    }
+    function mousedown(e){
+        if (guiElement === null) {
+            guiElement = e.currentTarget;
+        }
+        const { altKey } = e;
+        if    ( altKey )   {
+            e.preventDefault()
+            document.addEventListener(mousemove.name, mousemove)
+        } 
+    }
+    thisArg.on(mousedown.name, mousedown)
+    document.on(mouseup.name, mouseup)
 }
