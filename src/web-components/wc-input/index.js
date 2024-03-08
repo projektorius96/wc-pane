@@ -22,7 +22,7 @@ customElements.define(wc_input, class extends HTMLInputElement {
 }
 , 
 {
-    extends: HTMLElement.extends(HTMLInputElement)
+    extends: HTMLElement.extends?.(HTMLInputElement)
 })
 
 function setAttributes(el, attrs) {
