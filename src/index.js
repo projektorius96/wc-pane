@@ -5,19 +5,15 @@ import { wc_select } from './web-components/wc-select/index.js';
 import { wc_label } from './web-components/wc-label/index.js';
 import { wc_list } from './web-components/wc-list/index.js';
 
-const 
-    HUD = customElements.get(wc_container),
-    Input = customElements.get(wc_input),
-    Select = customElements.get(wc_select),
-    Label = customElements.get(wc_label),
-    List = customElements.get(wc_list);
-
-// DEV_NOTE # Namespacing before final named export
-Input.Select = Select; /* as of now accessible via Input.Select */
-Input.List = List; /* as of now accessible via Input.List */
-
 export {
     HUD,
-    Input,
     Label,
+    Input,
 }
+
+const HUD = customElements.get(wc_container);
+const Label = customElements.get(wc_label);
+const Input = customElements.get(wc_input);
+        Input.Select = customElements.get(wc_select);
+        Input.List = customElements.get(wc_list);
+
