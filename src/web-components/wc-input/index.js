@@ -1,12 +1,7 @@
-import { setDefaultStyling } from "./global.css.js";
+import { setDefaultStyling } from "../global.css.js";
 
-function setAttributes(el, attrs) {
-    for (var key in attrs) {
-        el.setAttribute(key, attrs[key]);
-    }
-}
-
-export default class wc_input extends HTMLInputElement {
+export const wc_input = [...import.meta.url.split('/').reverse()][1];
+customElements.define(wc_input, class extends HTMLInputElement {
 
     constructor({name, type, attrs}){
 
@@ -29,4 +24,13 @@ export default class wc_input extends HTMLInputElement {
 
     }
 
+},
+{
+    extends: HTMLElement.extends(HTMLInputElement)
+})
+
+function setAttributes(el, attrs) {
+    for (var key in attrs) {
+        el.setAttribute(key, attrs[key]);
+    }
 }
