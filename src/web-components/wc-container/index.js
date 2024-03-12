@@ -98,7 +98,7 @@ function enableDraggingTo(thisArg){
             guiElement.style.top = `${e.pageY}px`;
     }
     function mouseup(){
-        document.removeEventListener(mousemove.name, mousemove)
+        document.rm(mousemove.name, mousemove)
         guiElement = null;
     }
     function mousedown(e){

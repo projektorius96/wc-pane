@@ -1,4 +1,4 @@
-import { setStyling } from "./index.css.js";
+import setStyling from "./index.css.js";
 
 export const wc_input = [...import.meta.url.split('/').reverse()][1];
 customElements.define(wc_input, class extends HTMLInputElement {
@@ -9,9 +9,9 @@ customElements.define(wc_input, class extends HTMLInputElement {
 
         if( setStyling.call(this, type, attrs) ){
 
-            setAttributes(this, attrs)
-            this.name = name || type;
-            this.type = type || 'range';
+            setAttributes(this, attrs);
+                this.name = name || type;
+                this.type = type || 'range';
 
         }
 
@@ -26,7 +26,7 @@ customElements.define(wc_input, class extends HTMLInputElement {
 })
 
 function setAttributes(el, attrs) {
-    for (var key in attrs) {
+    for (let key in attrs) {
         el.setAttribute(key, attrs[key]);
     }
 }

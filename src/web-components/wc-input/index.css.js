@@ -1,4 +1,4 @@
-export function setStyling(type, attrs){
+export default function setStyling(type, attrs){
 
     defaults:;
         this.style.width = "100%";

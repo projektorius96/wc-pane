@@ -1,4 +1,9 @@
 import { HUD, Input, Label } from "./src/index.js";
+import { name } from './package.json';
+
+document.on('DOMContentLoaded', ()=>{
+    document.title = name;
+});
 
 const GUI = globalThis.GUI = new HUD({container: document.body/* , minWidth: 15, position: 'right', draggable: true */})
     ///* DEV_NOTE # accessor_valueN, N defaults to 1,2,3..n */

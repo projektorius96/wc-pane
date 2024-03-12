@@ -1,9 +1,9 @@
 export const wc_label = [...import.meta.url.split('/').reverse()][1];
 customElements.define(wc_label, class extends HTMLLabelElement {
 
-    constructor(description = ""){
+    constructor(description = ''){
         
-        super()
+        super();
         
         this.style.cssText = /* style */`
             width: 100%;
