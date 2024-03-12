@@ -1,21 +1,13 @@
+import setStyling from './index.css.js';
+
 export const wc_container = [...import.meta.url.split('/').reverse()][1];
 customElements.define(wc_container, class extends HTMLElement {
     
-    constructor({container, position = 'start', minWidth = 20, draggable = false}){
-        
+    constructor({container, position, minWidth, draggable = false}){
+
         super();
         
-        this.style.cssText = /* style */`
-        user-select: none;
-            position: absolute;
-                z-index:999;
-            justify-self: ${(container.style.display = 'grid') && position};
-            min-width: ${minWidth}%;
-            border: 2px solid black;
-            border-radius: 8px;
-            padding: 8px;
-            background-color: #d8d8d8;
-        `;
+        setStyling.call(this, {container, position, minWidth})
 
         if(draggable){
             enableDraggingTo(this)
@@ -27,19 +19,15 @@ customElements.define(wc_container, class extends HTMLElement {
         else {
             document.body.prepend(this)
         }
-        
+
         return this;
 
     }
 
     find({name, index = 0}){
-
-        const _section = document.getElementsByName(name).item(index);
         
-        return(
-            _section
-        )
-
+        return  document.getElementsByName(name).item(index);
+        
     }
 
     addSection({accessor, flex_direction = "column", column = 1}){
@@ -49,7 +37,7 @@ customElements.define(wc_container, class extends HTMLElement {
 
                 return (
                     _HTMLSectionElement = document.createElement('section')
-                )
+                );
     
             }).map((__HTMLSectionElement, N)=>{
 
@@ -80,24 +68,24 @@ customElements.define(wc_container, class extends HTMLElement {
                 color: white;
                 border-radius: 1em;
             `;
-            legend.textContent = override_label || name;
+            legend.textContent = (override_label || name);
         const fieldset = document.createElement('fieldset');
             fieldset.style.cssText = /* style */`
                 margin: 0px;
             `;
             fieldset.name = name;
-            fieldset.appendChild(legend)
+            fieldset.appendChild(legend);
             fieldset.append(
                 ...nodes
-            )
+            );
 
             this.append(
                 fieldset
-            )
+            );
 
-            return {
+            return ({
                 name
-            }
+            });
 
     }
 
