@@ -1,6 +1,11 @@
 import { HUD, Input, Label } from "./src/index.js";
+import { name } from './package.json';
 
-const GUI = globalThis.GUI = new HUD({container: document.body, minWidth: 15, position: 'right', draggable: true})
+document.on('DOMContentLoaded', ()=>{
+    document.title = name;
+});
+
+const GUI = globalThis.GUI = new HUD({container: document.body/* , minWidth: 15, position: 'right', draggable: true */})
     ///* DEV_NOTE # accessor_valueN, N defaults to 1,2,3..n */
     GUI.addGroup({name: 'slider', nodes: GUI.addSection({accessor: 'section', column: 2})})
     GUI.addGroup({name: 'describer', nodes: GUI.addSection({accessor: 'greet', column: 1})})
@@ -43,12 +48,17 @@ layerManager.slot1.appendChild(
     new Input.List({
     name: "layer-manager", 
     attrs: {
-        loopData: [{randomID: Math.random()}, {randomID: Math.random()}], 
-        dataEntry: "randomID",
-        sortable: {
+        loopData: [
+            function(item, index){ console.log(item, index, this) }
+            , 
+            [
+                Math.random(), Math.random()
+            ]
+        ], 
+        sortableConfig: {
             animation: 150,
             onChange: function(e){
-                console.log(e)
+                    console.log(e)
             }
         }
     }

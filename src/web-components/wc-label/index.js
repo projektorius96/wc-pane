@@ -1,9 +1,10 @@
-export default class wc_label extends HTMLLabelElement {
+export const wc_label = [...import.meta.url.split('/').reverse()][1];
+customElements.define(wc_label, class extends HTMLLabelElement {
 
     constructor(description = ''){
         
         super();
-
+        
         this.style.cssText = /* style */`
             width: 100%;
             text-align: center;
@@ -15,3 +16,7 @@ export default class wc_label extends HTMLLabelElement {
     }
 
 }
+, 
+{
+    extends: HTMLElement.extends?.(HTMLLabelElement)
+})
