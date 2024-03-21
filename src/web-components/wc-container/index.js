@@ -71,7 +71,7 @@ customElements.define(wc_container, class extends HTMLElement {
             legend.textContent = (override_label || name);
         const fieldset = document.createElement('fieldset');
             fieldset.style.cssText = /* style */`
-                margin: 0px;
+                margin: 8px;
             `;
             fieldset.name = name;
             fieldset.appendChild(legend);
