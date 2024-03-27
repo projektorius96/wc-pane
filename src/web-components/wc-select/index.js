@@ -5,6 +5,7 @@ customElements.define(wc_select, class extends HTMLSelectElement {
         
         super();
 
+        this.style.width = "100%";
         this.name = name;
         
         if (attrs?.loopData[1].length > 0){

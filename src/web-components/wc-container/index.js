@@ -30,16 +30,16 @@ customElements.define(wc_container, class extends HTMLElement {
         
     }
 
-    addSection({accessor, flex_direction = "column", column = 1}){
+    addSection({sectionCount = 1, accessor = "child", flex_direction = "column"}){
 
         return (
-            [...new Array(column).fill(HTMLTemplateElement)].map((_HTMLSectionElement)=>{
+            [...new Array(sectionCount).fill(HTMLTemplateElement)].map((_HTMLSectionElement)=>{
 
                 return (
                     _HTMLSectionElement = document.createElement('section')
                 );
     
-            }).map((__HTMLSectionElement, N)=>{
+            }).map((__HTMLSectionElement, n)=>{
 
                 __HTMLSectionElement.style.cssText = /* style */`
                     display: flex;
@@ -47,8 +47,8 @@ customElements.define(wc_container, class extends HTMLElement {
                     padding: 4px;
                 `;
 
-                __HTMLSectionElement.setAttribute('id', `${accessor}${1+N}`);
-                __HTMLSectionElement.setAttribute('name', `${accessor}${1+N}`);
+                __HTMLSectionElement.setAttribute('id', `${accessor}${accessor !== "parent" ? n+1 : ""}`);
+                __HTMLSectionElement.setAttribute('name', `${accessor}${accessor !== "parent" ? n+1 : ""}`);
                 
                 return (
                     __HTMLSectionElement
@@ -72,7 +72,7 @@ customElements.define(wc_container, class extends HTMLElement {
                     details.name = name;
                     details.open = open;
                         if ( !Boolean( new Set(summary.parentElement.getAttributeNames()).has('open') ) ){
-                            summary.parentElement.firstElementChild.style.paddingLeft = "8px";
+                            summary.parentElement.firstElementChild.style.padding = "4px";
                         }
                     details.addEventListener('toggle', ()=>{
                         if ( new Set(details.getAttributeNames()).has("open") ){
