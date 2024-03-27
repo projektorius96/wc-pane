@@ -30,24 +30,25 @@ customElements.define(wc_container, class extends HTMLElement {
         
     }
 
-    addSection({accessor, flex_direction = "column", column = 1}){
+    addSection({sectionCount = 1, accessor = "child", flex_direction = "column"}){
 
         return (
-            [...new Array(column).fill(HTMLTemplateElement)].map((_HTMLSectionElement)=>{
+            [...new Array(sectionCount).fill(HTMLTemplateElement)].map((_HTMLSectionElement)=>{
 
                 return (
                     _HTMLSectionElement = document.createElement('section')
                 );
     
-            }).map((__HTMLSectionElement, N)=>{
+            }).map((__HTMLSectionElement, n)=>{
 
                 __HTMLSectionElement.style.cssText = /* style */`
                     display: flex;
                     flex-direction: ${flex_direction};
+                    padding: 4px;
                 `;
 
-                __HTMLSectionElement.setAttribute('id', `${accessor}${1+N}`);
-                __HTMLSectionElement.setAttribute('name', `${accessor}${1+N}`);
+                __HTMLSectionElement.setAttribute('id', `${accessor}${accessor !== "parent" ? n+1 : ""}`);
+                __HTMLSectionElement.setAttribute('name', `${accessor}${accessor !== "parent" ? n+1 : ""}`);
                 
                 return (
                     __HTMLSectionElement
@@ -58,30 +59,65 @@ customElements.define(wc_container, class extends HTMLElement {
 
     }
 
-    addGroup({name, override_label = '', nodes = [document.createElement('template')]}){
+    addGroup({name, override_label = '', nodes = [document.createElement('template')], foldable = false, open = false}){
 
-        const legend = document.createElement('legend');
-            legend.style.cssText = /* style */`
-                position: relative;
-                top: 2px;
-                background-color: black;
-                color: white;
-                border-radius: 1em;
-            `;
-            legend.textContent = (override_label || name);
-        const fieldset = document.createElement('fieldset');
-            fieldset.style.cssText = /* style */`
-                margin: 8px;
-            `;
-            fieldset.name = name;
-            fieldset.appendChild(legend);
-            fieldset.append(
-                ...nodes
-            );
+            if (!foldable){
+                const summary$css = new CSSStyleSheet();
+                const summary = document.createElement('summary');
+                    summary.id = (override_label || name);
+                    summary.textContent = summary.id;
+                
+                const details = document.createElement('details');
+                    details.appendChild(summary);
+                    details.name = name;
+                    details.open = open;
+                        if ( !Boolean( new Set(summary.parentElement.getAttributeNames()).has('open') ) ){
+                            summary.parentElement.firstElementChild.style.padding = "4px";
+                        }
+                    details.addEventListener('toggle', ()=>{
+                        if ( new Set(details.getAttributeNames()).has("open") ){
+                            summary$css.insertRule(`summary#${summary.id}::marker { content: \"❎\"; }`, summary$css.cssRules.length);
+                        }
+                        else {
+                            summary$css.insertRule(`summary#${summary.id}::marker { content: \"✅\"; }`, summary$css.cssRules.length);
+                        }
+                    })
 
-            this.append(
-                fieldset
-            );
+                details.append(
+                    ...nodes
+                );
+
+                this.append(
+                    details
+                );
+
+                document.adoptedStyleSheets.push(summary$css);
+    
+            }
+            else {
+                const legend = document.createElement('legend');
+                    legend.style.cssText = /* style */`
+                        position: relative;
+                        top: 2px;
+                        background-color: black;
+                        color: white;
+                        border-radius: 1em;
+                    `;
+                    legend.textContent = (override_label || name);
+                const fieldset = document.createElement('fieldset');
+                    fieldset.style.cssText = /* style */`
+                        margin: 8px;
+                    `;
+                    fieldset.name = name;
+                    fieldset.appendChild(legend);
+                    fieldset.append(
+                        ...nodes
+                    );
+
+                this.append(
+                    fieldset
+                );
+            }
 
             return ({
                 name
