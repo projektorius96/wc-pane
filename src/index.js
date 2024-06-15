@@ -1,4 +1,4 @@
-import './DOMutils.js'; // DEV_NOTE (!) # MUST BE very first import statement, especially because of {HTMLElement.extends} that every other "wc_*" component imported below depends on ;
+import './DOMutils.js'; // DEV_NOTE (!) # MUST BE the very first import statement, especially because of {HTMLElement.extends} that every other "wc_*" component imported below depends on;
 import { wc_container } from './web-components/wc-container/index.js';
 import { wc_input } from './web-components/wc-input/index.js';
 import { wc_select } from './web-components/wc-select/index.js';

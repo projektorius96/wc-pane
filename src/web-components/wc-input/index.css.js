@@ -2,8 +2,8 @@ export default function setStyling(type, attrs){
 
     defaults:;
         this.style.width = "100%";
-        this.style.border = "4px dashed black";
         this.style.margin = 0;
+        this.style.padding = 0;
 
     switch(type){
         case 'text':

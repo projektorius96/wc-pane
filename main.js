@@ -37,7 +37,7 @@ GUI.find({name: range.name}).on('input', function(){
 });
 /* === checkboxer */
 const checkboxer = {name: 'tick1'}
-slider.section2.append(
+slider.section1.append(
     new Label('clock-wise'),
     new Input({...checkboxer, type: 'checkbox'/* , attrs: {cboxScaling: 1.5} */})
 )
@@ -49,7 +49,11 @@ layerManager.slot1.appendChild(
     name: "layer-manager", 
     attrs: {
         loopData: [
-            function(item, index){ console.log(item, index, this) }
+            function(item, index){ 
+                const ul = document.createElement(HTMLElement.extends?.(HTMLUListElement));
+                    ul.textContent = `No.${1+index} : ${item}`;
+                this.appendChild(ul);
+            }
             , 
             [
                 Math.random(), Math.random()

@@ -9,9 +9,9 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "vite": "^5.0.12"
+    "vite": "^5.3.1"
   },
   "dependencies": {
-    "sortablejs": "^1.15.0"
+    "sortablejs": "^1.15.2"
   }
 }
