@@ -3,21 +3,21 @@ import setStyling from './index.css.js';
 export const wc_container = [...import.meta.url.split('/').reverse()][1];
 customElements.define(wc_container, class extends HTMLElement {
     
-    constructor({container, position, minWidth, draggable = false}){
+    constructor({container, position, minWidth, draggable = false, opacity = 0.75}){
 
         super();
         
-        setStyling.call(this, {container, position, minWidth})
+        setStyling.call(this, {container, position, minWidth, opacity});
 
         if(draggable){
-            enableDraggingTo(this)
+            enableDraggingTo(this);
         }
 
         if (container !== document.body){
-            container.prepend(this)
+            container.prepend(this);
         }
         else {
-            document.body.prepend(this)
+            document.body.prepend(this);
         }
 
         return this;
@@ -26,7 +26,7 @@ customElements.define(wc_container, class extends HTMLElement {
 
     find({name, index = 0}){
         
-        return  document.getElementsByName(name).item(index);
+        return document.getElementsByName(name).item(index);
         
     }
 
@@ -59,69 +59,43 @@ customElements.define(wc_container, class extends HTMLElement {
 
     }
 
-    addGroup({name, override_label = '', nodes = [document.createElement('template')], foldable = false, open = false}){
+    addGroup({name, override_label = '', nodes = [document.createElement('template')], open = /* ! */false}){
 
-            if (!foldable){
-                const summary$css = new CSSStyleSheet();
-                const summary = document.createElement('summary');
-                    summary.id = (override_label || name);
-                    summary.textContent = summary.id;
-                
-                const details = document.createElement('details');
-                    details.appendChild(summary);
-                    details.name = name;
-                    details.open = open;
-                        if ( !Boolean( new Set(summary.parentElement.getAttributeNames()).has('open') ) ){
-                            summary.parentElement.firstElementChild.style.padding = "4px";
-                        }
-                    details.addEventListener('toggle', ()=>{
-                        if ( new Set(details.getAttributeNames()).has("open") ){
-                            summary$css.insertRule(`summary#${summary.id}::marker { content: \"❎\"; }`, summary$css.cssRules.length);
-                        }
-                        else {
-                            summary$css.insertRule(`summary#${summary.id}::marker { content: \"✅\"; }`, summary$css.cssRules.length);
-                        }
-                    })
+        const summary$css = new CSSStyleSheet();
+        const summary = document.createElement('summary');
+            summary.id = (override_label || name);
+            summary.textContent = summary.id;
+        
+        const details = document.createElement('details');
+            details.appendChild(summary);
+            details.name = name;
+            details.open = open; 
+                if ( !Boolean( new Set(details.getAttributeNames()).has('open') ) ){
+                    summary.parentElement.firstElementChild.style.padding = "4px";
+                    summary$css.insertRule(`summary#${summary.id}::marker { content: \"✅\"; }`, summary$css.cssRules.length);
+                }
+            details.addEventListener('toggle', (e)=>{
+                if ( new Set(e.target.getAttributeNames()).has("open") ){
+                    summary$css.insertRule(`summary#${summary.id}::marker { content: \"❎\"; }`, summary$css.cssRules.length);
+                }
+                else {
+                    summary$css.insertRule(`summary#${summary.id}::marker { content: \"✅\"; }`, summary$css.cssRules.length);
+                }
+            })
 
-                details.append(
-                    ...nodes
-                );
 
-                this.append(
-                    details
-                );
+        // DEV_NOTE # !Boolean(undefined) === true, as .append() returns true;
+        if(!Boolean( details.append(...nodes) )){
 
-                document.adoptedStyleSheets.push(summary$css);
-    
-            }
-            else {
-                const legend = document.createElement('legend');
-                    legend.style.cssText = /* style */`
-                        position: relative;
-                        top: 2px;
-                        background-color: black;
-                        color: white;
-                        border-radius: 1em;
-                    `;
-                    legend.textContent = (override_label || name);
-                const fieldset = document.createElement('fieldset');
-                    fieldset.style.cssText = /* style */`
-                        margin: 8px;
-                    `;
-                    fieldset.name = name;
-                    fieldset.appendChild(legend);
-                    fieldset.append(
-                        ...nodes
-                    );
-
-                this.append(
-                    fieldset
-                );
-            }
+            !Boolean( this.append(
+                details
+            )) && document.adoptedStyleSheets.push(summary$css);
 
             return ({
                 name
             });
+
+        }
 
     }
 
@@ -134,7 +108,7 @@ function enableDraggingTo(thisArg){
             guiElement.style.top = `${e.pageY}px`;
     }
     function mouseup(){
-        document.rm(mousemove.name, mousemove)
+        document.rm(mousemove.name, mousemove);
         guiElement = null;
     }
     function mousedown(e){
@@ -143,8 +117,8 @@ function enableDraggingTo(thisArg){
         }
         const { altKey } = e;
         if    ( altKey )   {
-            e.preventDefault()
-            document.addEventListener(mousemove.name, mousemove)
+            e.preventDefault();
+            document.addEventListener(mousemove.name, mousemove);
         } 
     }
     thisArg.on(mousedown.name, mousedown)

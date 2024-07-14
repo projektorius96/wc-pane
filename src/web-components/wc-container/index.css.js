@@ -1,4 +1,4 @@
-export default function({container, position = 'left', minWidth = 15}){
+export default function({container, position = 'left', minWidth = 15, opacity}){
     this.style.cssText = /* style */`
         user-select: none;
             position: absolute;
@@ -9,6 +9,7 @@ export default function({container, position = 'left', minWidth = 15}){
             border-radius: 8px;
             padding: 8px;
             background-color: #d8d8d8;
+            opacity: ${opacity};
         `;
 
     return true;
