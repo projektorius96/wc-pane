@@ -3,11 +3,11 @@ import setStyling from './index.css.js';
 export const wc_container = [...import.meta.url.split('/').reverse()][1];
 customElements.define(wc_container, class extends HTMLElement {
     
-    constructor({container, position, minWidth, draggable = false}){
+    constructor({container, position, minWidth, draggable = false, opacity = 0.75}){
 
         super();
         
-        setStyling.call(this, {container, position, minWidth});
+        setStyling.call(this, {container, position, minWidth, opacity});
 
         if(draggable){
             enableDraggingTo(this);
