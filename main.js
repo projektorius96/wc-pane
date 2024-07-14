@@ -5,8 +5,8 @@ document.on('DOMContentLoaded', ()=>{
     document.title = name;
 });
 
-const GUI = globalThis.GUI = new HUD({container: document.body/* , minWidth: 15, position: 'right', draggable: true */})
-    ///* DEV_NOTE # accessor_valueN, N defaults to 1,2,3..n */
+const GUI = globalThis.GUI = new HUD({container: document.body})
+    ///* DEV_NOTE # accessor_valueN where N defaults to {1,2,3..n} */
     GUI.addGroup({name: 'slider', nodes: GUI.addSection({accessor: 'section', column: 2})})
     GUI.addGroup({name: 'describer', nodes: GUI.addSection({accessor: 'greet', column: 1})})
     GUI.addGroup({name: 'layer-manager', nodes: GUI.addSection({accessor: 'slot'})})
@@ -18,24 +18,24 @@ const rangeParams = {
     value: 1
 }
 
-/* === describer */
+/* === GUI.describer === */
 const describer = GUI.find({name: 'describer'}).children;
 describer.greet1.append(
         new Label('name it'),
         new Input({name: 'text_handle', type: 'text'})
 )
 GUI.find({name: 'text_handle'}).on('input', (e)=>console.log(e.target.value))
-/* === slider */
+/* === GUI.slider === */
 const slider = GUI.find({name: 'slider'}).children;
 const range = new Input({name: 'range', attrs: {...rangeParams}})
 slider.section1.append(
     new Label('rotation'),
     range
 );
-GUI.find({name: range.name}).on('input', function(){
+GUI.find(range).on('input', function(){
     console.log(this.value)
 });
-/* === checkboxer */
+/* === GUI.checkboxer === */
 const checkboxer = {name: 'tick1'}
 slider.section1.append(
     new Label('clock-wise'),
