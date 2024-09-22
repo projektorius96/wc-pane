@@ -59,9 +59,18 @@ customElements.define(wc_container, class extends HTMLElement {
 
     }
 
-    addGroup({name, override_label = '', nodes = [document.createElement('template')], open = /* ! */false}){
+    addGroup({ name, override_label = "", nodes = [document.createElement('template')], open = false }){
 
         const summary$css = new CSSStyleSheet();
+                summary$css.replaceSync(/* style */`
+                    summary::marker {
+                        content: "✅";
+                    }
+
+                    summary.open::marker {
+                        content: "❎";
+                    }
+                `);
         const summary = document.createElement('summary');
             summary.id = (override_label || name);
             summary.textContent = summary.id;
@@ -69,27 +78,24 @@ customElements.define(wc_container, class extends HTMLElement {
         const details = document.createElement('details');
             details.appendChild(summary);
             details.name = name;
-            details.open = open; 
-                if ( !Boolean( new Set(details.getAttributeNames()).has('open') ) ){
-                    summary.parentElement.firstElementChild.style.padding = "4px";
-                    summary$css.insertRule(`summary#${summary.id}::marker { content: \"✅\"; }`, summary$css.cssRules.length);
-                }
-            details.addEventListener('toggle', (e)=>{
-                if ( new Set(e.target.getAttributeNames()).has("open") ){
-                    summary$css.insertRule(`summary#${summary.id}::marker { content: \"❎\"; }`, summary$css.cssRules.length);
-                }
-                else {
-                    summary$css.insertRule(`summary#${summary.id}::marker { content: \"✅\"; }`, summary$css.cssRules.length);
-                }
-            })
+            details.open = open;
+            
+            // Set initial marker based on the open state
+            summary.classList.toggle('open', details.open);
+
+            // Add event listener for toggle event
+            details.addEventListener('toggle', (e) => {
+                summary.classList.toggle('open', details.open);
+            });
 
 
-        // DEV_NOTE # !Boolean(undefined) === true, as .append() returns true;
-        if(!Boolean( details.append(...nodes) )){
+        // DEV_NOTE # hacky way to do Boolean-first cascading as !Boolean(undefined) will return true-ish
+        if ( !Boolean( details.append(...nodes) ) ) {
 
+            // DEV_NOTE # hacky way to do Boolean-first cascading as !Boolean(undefined) will return true-ish
             !Boolean( this.append(
                 details
-            )) && document.adoptedStyleSheets.push(summary$css);
+            ) ) && document.adoptedStyleSheets.push(summary$css);
 
             return ({
                 name

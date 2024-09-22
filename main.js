@@ -5,7 +5,7 @@ document.on('DOMContentLoaded', ()=>{
     document.title = name;
 });
 
-const GUI = globalThis.GUI = new HUD({container: document.body})
+const GUI = globalThis.GUI = new HUD({container: document.body, draggable: true})
     ///* DEV_NOTE # accessor_valueN where N defaults to {1,2,3..n} */
     GUI.addGroup({name: 'slider', nodes: GUI.addSection({accessor: 'section', column: 2})})
     GUI.addGroup({name: 'describer', nodes: GUI.addSection({accessor: 'greet', column: 1})})
