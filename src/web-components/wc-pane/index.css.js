@@ -7,8 +7,8 @@ export default function({container, opacity, position = 'left', minWidth = 15}){
             justify-self: ${(container.style.display = 'grid') && position};
             min-width: ${minWidth}%;
             border: 2px solid black;
-            border-radius: 8px;
-            padding: 8px;
+            border-radius: 0.5em;
+            padding: 0.5em;
             background-color: #d8d8d8;
             opacity: ${opacity};
         `;
