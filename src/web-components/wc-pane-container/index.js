@@ -1,7 +1,7 @@
 import setStyling from './index.css.js';
 
-export const wc_container = [...import.meta.url.split('/').reverse()][1];
-customElements.define(wc_container, class extends HTMLElement {
+export const wc_pane_container = [...import.meta.url.split('/').reverse()][1];
+customElements.define(wc_pane_container, class extends HTMLElement {
     
     constructor({container, position, minWidth, draggable = false, opacity = 0.75}){
 
@@ -33,33 +33,27 @@ customElements.define(wc_container, class extends HTMLElement {
     addSection({sectionCount = 1, accessor = "child", flex_direction = "column"}){
 
         return (
-            [...new Array(sectionCount).fill(HTMLTemplateElement)].map((_HTMLSectionElement)=>{
+            Array.from({length: sectionCount})
+            .map(()=> document.createElement('section') )
+            .map((section, nth)=>{
 
-                return (
-                    _HTMLSectionElement = document.createElement('section')
-                );
-    
-            }).map((__HTMLSectionElement, n)=>{
-
-                __HTMLSectionElement.style.cssText = /* style */`
+                section.style.cssText = /* style */`
                     display: flex;
                     flex-direction: ${flex_direction};
                     padding: 4px;
                 `;
 
-                __HTMLSectionElement.setAttribute('id', `${accessor}${accessor !== "parent" ? n+1 : ""}`);
-                __HTMLSectionElement.setAttribute('name', `${accessor}${accessor !== "parent" ? n+1 : ""}`);
+                section.setAttribute('id', `${accessor}${accessor !== "parent" ? nth+1 : ""}`);
+                section.setAttribute('name', `${accessor}${accessor !== "parent" ? nth+1 : ""}`);
                 
-                return (
-                    __HTMLSectionElement
-                );
+                return section;
     
             })
         )
 
     }
 
-    addGroup({ name, override_label = "", nodes = [document.createElement('template')], open = false }){
+    addGroup({ name, override_label = "", nodes = [], open = false }){
 
         const summary$css = new CSSStyleSheet();
                 summary$css.replaceSync(/* style */`
@@ -84,7 +78,7 @@ customElements.define(wc_container, class extends HTMLElement {
             summary.classList.toggle('open', details.open);
 
             // Add event listener for toggle event
-            details.addEventListener('toggle', (e) => {
+            details.addEventListener('toggle', ()=>{
                 summary.classList.toggle('open', details.open);
             });
 
@@ -114,7 +108,7 @@ function enableDraggingTo(thisArg){
             guiElement.style.top = `${e.pageY}px`;
     }
     function mouseup(){
-        document.rm(mousemove.name, mousemove);
+        document.rm('mousemove', mousemove);
         guiElement = null;
     }
     function mousedown(e){
@@ -124,9 +118,9 @@ function enableDraggingTo(thisArg){
         const { altKey } = e;
         if    ( altKey )   {
             e.preventDefault();
-            document.addEventListener(mousemove.name, mousemove);
+            document.on('mousemove', mousemove);
         } 
     }
-    thisArg.on(mousedown.name, mousedown)
-    document.on(mouseup.name, mouseup)
+    thisArg.on('mousedown', mousedown)
+    document.on('mouseup', mouseup)
 }

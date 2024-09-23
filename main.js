@@ -7,8 +7,8 @@ document.on('DOMContentLoaded', ()=>{
 
 const GUI = globalThis.GUI = new HUD({container: document.body, draggable: true})
     ///* DEV_NOTE # accessor_valueN where N defaults to {1,2,3..n} */
-    GUI.addGroup({name: 'slider', nodes: GUI.addSection({accessor: 'section', column: 2})})
-    GUI.addGroup({name: 'describer', nodes: GUI.addSection({accessor: 'greet', column: 1})})
+    GUI.addGroup({name: 'slider', nodes: GUI.addSection({/* accessor: 'child' (DEFAULT) , */sectionCount: 2})})
+    GUI.addGroup({name: 'describer', nodes: GUI.addSection({accessor: 'greet'})})
     GUI.addGroup({name: 'layer-manager', nodes: GUI.addSection({accessor: 'slot'})})
 
 const rangeParams = {
@@ -28,7 +28,7 @@ GUI.find({name: 'text_handle'}).on('input', (e)=>console.log(e.target.value))
 /* === GUI.slider === */
 const slider = GUI.find({name: 'slider'}).children;
 const range = new Input({name: 'range', attrs: {...rangeParams}})
-slider.section1.append(
+slider.child1.append(
     new Label('rotation'),
     range
 );
@@ -37,7 +37,7 @@ GUI.find(range).on('input', function(){
 });
 /* === GUI.checkboxer === */
 const checkboxer = {name: 'tick1'}
-slider.section1.append(
+slider.child1.append(
     new Label('clock-wise'),
     new Input({...checkboxer, type: 'checkbox'/* , attrs: {cboxScaling: 1.5} */})
 )
@@ -56,7 +56,7 @@ layerManager.slot1.appendChild(
             }
             , 
             [
-                Math.random(), Math.random()
+                ...Array.from({length: 3}).fill(Math.random())
             ]
         ], 
         sortableConfig: {
