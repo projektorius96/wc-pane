@@ -1,5 +1,14 @@
 # Project name: wc-pane
 
+### HOW TO USE
+
+<u>Consider the following project's hierarchy, the hierarchy as follows</u>:
+
+. <br>
+|- ./src/ : _where index.js is the entry file of "wc-pane" itself_ <br>
+|-- /web-components/wc-pane/ – _where index.js is the top level element (i.e. entry) of wc-pane (i.e. GUI) itself_ <br>
+
+---
 
 ### Features
 
