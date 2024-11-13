@@ -13,6 +13,16 @@ export default function({container, opacity, position = 'left', minWidth = 15}){
             opacity: ${opacity};
         `;
 
+    window.addEventListener('resize', ()=>{
+        if ( window.screen.orientation.type.includes('portrait') ){
+            this.style.minWidth = `${100}%`;
+            this.style.bottom = `${0}px`;
+        } else {
+            this.style.minWidth = `${minWidth}%`;
+            this.style.bottom = `unset`;
+        }
+    })
+
     return true;
 
 }
