@@ -3,7 +3,9 @@ import setStyling from './index.css.js';
 /**
  * > **NOTE** : \<wc-pane\> is top-level (entry) web-component element
  */
-export const wc_pane = [...import.meta.url.split('/').reverse()][1];
+
+/* DEV_NOTE (!) # DOES NOT WORK for `vite build`, so MUST to hard-code the value in matching its directory endpoint, as follows (see:1^): */
+export const wc_pane = 'wc-pane'/*  1^[...import.meta.url.split('/').reverse()][1] */;
 customElements.define(wc_pane, class extends HTMLElement {
     
     constructor({container, position, minWidth, draggable = false, opacity = 0.75}){
