@@ -8,11 +8,11 @@ import setStyling from './index.css.js';
 export const wc_pane = 'wc-pane'/*  1^[...import.meta.url.split('/').reverse()][1] */;
 customElements.define(wc_pane, class extends HTMLElement {
     
-    constructor({container, position, minWidth, draggable = false, opacity = 0.75}){
+    constructor({container, position, minWidth, draggable = false, opacity = 0.75, hidden = false}){
 
         super();
         
-        setStyling.call(this, {container, position, minWidth, opacity});
+        setStyling.call(this, {container, position, minWidth, opacity, hidden});
 
         if(draggable){
             enableDraggingTo(this);

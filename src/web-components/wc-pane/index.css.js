@@ -1,4 +1,4 @@
-export default function({container, opacity, position = 'left', minWidth = 15}){
+export default function({container, opacity, hidden, position = 'left', minWidth = 15}){
 
     this.style.cssText = /* style */`
             user-select: none;
@@ -10,6 +10,7 @@ export default function({container, opacity, position = 'left', minWidth = 15}){
             border-radius: 0.5em;
             padding: 0.5em;
             background-color: #d8d8d8;
+            display: ${hidden ? 'none' : 'inherit'};
             opacity: ${opacity};
         `;
 
