@@ -58,7 +58,7 @@ customElements.define(wc_pane, class extends HTMLElement {
 
     }
 
-    addGroup({ name, override_label = "", nodes = [], open = false }){
+    addGroup({ name, override_label = "", nodes = [], open = false, label = true}){
 
         const summary$css = new CSSStyleSheet();
                 summary$css.replaceSync(/* style */`
@@ -81,6 +81,7 @@ customElements.define(wc_pane, class extends HTMLElement {
             
             // Set initial marker based on the open state
             summary.classList.toggle('open', details.open);
+            if (!label) summary.style.display = 'none';
 
             // Add event listener for toggle event
             details.addEventListener('toggle', ()=>{
