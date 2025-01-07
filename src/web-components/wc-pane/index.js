@@ -35,6 +35,12 @@ customElements.define(wc_pane, class extends HTMLElement {
         
     }
 
+    getInput({name, index = 1}){
+        
+        return document.getElementsByName(name).item(index);
+        
+    }
+
     addSection({sectionCount = 1, accessor = "child", flex_direction = "column"}){
 
         return (
