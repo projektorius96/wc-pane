@@ -7,8 +7,12 @@ import setStyling from './index.css.js';
 /* DEV_NOTE (!) # DOES NOT WORK for `vite build`, so MUST to hard-code the value in matching its directory endpoint, as follows (see:1^): */
 export const wc_pane = 'wc-pane'/*  1^[...import.meta.url.split('/').reverse()][1] */;
 customElements.define(wc_pane, class extends HTMLElement {
-    
+
     constructor({container, position, minWidth, draggable = false, opacity = 0.75, hidden = false}){
+
+        /**
+         * > Herein keyword `this` refers to the instance of top-level `wc_pane` element during `new HUD` initalization; 
+        */
 
         super();
         
@@ -64,7 +68,7 @@ customElements.define(wc_pane, class extends HTMLElement {
 
     }
 
-    addGroup({ name, override_label = "", nodes = [], open = false, label = true}){
+    addGroup({ name, override_label = "", nodes = [], open = false, label = true, nestedUnder = null}){
 
         const summary$css = new CSSStyleSheet();
                 summary$css.replaceSync(/* style */`
@@ -98,10 +102,17 @@ customElements.define(wc_pane, class extends HTMLElement {
         // DEV_NOTE # hacky way to do Boolean-first cascading as !Boolean(undefined) will return true-ish
         if ( !Boolean( details.append(...nodes) ) ) {
 
-            // DEV_NOTE # hacky way to do Boolean-first cascading as !Boolean(undefined) will return true-ish
-            !Boolean( this.append(
-                details
-            ) ) && document.adoptedStyleSheets.push(summary$css);
+            if (nestedUnder !== null && nestedUnder instanceof HTMLDetailsElement){
+                details.style.width = String(100+'%')
+                !Boolean( nestedUnder.append(
+                    details
+                ) ) && document.adoptedStyleSheets.push(summary$css);
+            } else {
+                // DEV_NOTE # hacky way to do Boolean-first cascading as !Boolean(undefined) will return true-ish
+                !Boolean( this.append(
+                    details
+                ) ) && document.adoptedStyleSheets.push(summary$css);
+            }
 
             return ({
                 name

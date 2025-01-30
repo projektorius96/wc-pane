@@ -15,7 +15,13 @@
 #### Draggable GUI ? – Not a problem !
 
 1.1 set {`draggable: true`} during **wc-pane** (GUI) initialization; <br> 
-1.2 press and keep `MouseLeft+Alt` (`MouseLeft+Option` on Mac) whilst dragging your instance of GUI over the viewport to desired position.
+1.2 press and keep `MouseLeft+Alt` (`MouseLeft+Option` on MacOS) whilst dragging your instance of GUI over the viewport to desired position.
+
+#### Dockable GUI ? - Picture-in-Picture (PiP) API comes to rescue [EXPERIMENTAL FEATURE]
+
+> Mouse with your primary pointer (e.g. mouse) over GUI's element **wc-pane** instance on viewport of your browser and double click whilst the `ctrlKey` (`command` on MacOS) is being pressed with onhold, it will transfer the **wc-pane** instance to dedicated PiP controlled window;to do opposite, press on native exit button, i.e. "X" ("red button" on MacOS) found in the "titlebar" of PiP instantiated window;
+
+---
 
 > Found a bug? Please raise an issue.
 
