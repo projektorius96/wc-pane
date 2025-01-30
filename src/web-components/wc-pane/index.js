@@ -102,7 +102,7 @@ customElements.define(wc_pane, class extends HTMLElement {
         // DEV_NOTE # hacky way to do Boolean-first cascading as !Boolean(undefined) will return true-ish
         if ( !Boolean( details.append(...nodes) ) ) {
 
-            if (nestedUnder !== null && nestedUnder instanceof HTMLDetailsElement){
+            if (nestedUnder !== null && nestedUnder instanceof HTMLElement){
                 details.style.width = String(100+'%')
                 !Boolean( nestedUnder.append(
                     details
