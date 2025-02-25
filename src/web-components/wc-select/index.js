@@ -1,5 +1,4 @@
-/* DEV_NOTE (!) # DOES NOT WORK for `vite build`, so MUST to hard-code the value in matching its directory endpoint, as follows (see:1^): */
-export const wc_select = 'wc-select'/*  1^[...import.meta.url.split('/').reverse()][1] */;
+export const wc_select = (new URL(import.meta.url)).pathname.split('/').at(-2);
 customElements.define(wc_select, class extends HTMLSelectElement {
 
     constructor({name, attrs}){

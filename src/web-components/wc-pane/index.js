@@ -1,18 +1,15 @@
 import setStyling from './index.css.js';
 
-/**
- * > **NOTE** : \<wc-pane\> is top-level (entry) web-component element
- */
+import { TRUE } from '../../DOMutils.js';
 
-/* DEV_NOTE (!) # DOES NOT WORK for `vite build`, so MUST to hard-code the value in matching its directory endpoint, as follows (see:1^): */
-export const wc_pane = 'wc-pane'/*  1^[...import.meta.url.split('/').reverse()][1] */;
+/**
+ * @type
+ * The `customElements.get(wc_pane)` is top-level parent (entry) element
+ */
+export const wc_pane = (new URL(import.meta.url)).pathname.split('/').at(-2);
 customElements.define(wc_pane, class extends HTMLElement {
 
     constructor({container, position, minWidth, draggable = false, opacity = 0.75, hidden = false}){
-
-        /**
-         * > Herein keyword `this` refers to the instance of top-level `wc_pane` element during `new HUD` initalization; 
-        */
 
         super();
         
@@ -98,18 +95,15 @@ customElements.define(wc_pane, class extends HTMLElement {
                 summary.classList.toggle('open', details.open);
             });
 
-
-        // DEV_NOTE # hacky way to do Boolean-first cascading as !Boolean(undefined) will return true-ish
-        if ( !Boolean( details.append(...nodes) ) ) {
+        if ( TRUE( details.append(...nodes) ) ) {
 
             if (nestedUnder !== null && nestedUnder instanceof HTMLElement){
-                details.style.width = String(100+'%')
-                !Boolean( nestedUnder.append(
+                details.style.width = CSS.percent(100).toString()
+                TRUE( nestedUnder.append(
                     details
                 ) ) && document.adoptedStyleSheets.push(summary$css);
             } else {
-                // DEV_NOTE # hacky way to do Boolean-first cascading as !Boolean(undefined) will return true-ish
-                !Boolean( this.append(
+                TRUE( this.append(
                     details
                 ) ) && document.adoptedStyleSheets.push(summary$css);
             }
