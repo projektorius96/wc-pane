@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.6",
   "type": "module",
-  "main": "main.js",
+  "main": "./src/index.js",
   "devDependencies": {
     "vite": "^6.2.0"
   },
