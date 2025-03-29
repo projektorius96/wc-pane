@@ -6,7 +6,6 @@ document.on('DOMContentLoaded', ()=>{
 });
 
 const GUI = globalThis.GUI = new HUD({container: document.body, draggable: true, hidden: false, position: 'right', opacity: 1})
-    ///* DEV_NOTE # accessor_valueN where N defaults to {1,2,3..n} */
     GUI.addGroup({name: 'slider', nodes: GUI.addSection({/* accessor: 'child' (DEFAULT) , */sectionCount: 2})})
     GUI.addGroup({name: 'describer', nodes: GUI.addSection({accessor: 'greet'})})
     GUI.addGroup({name: 'layer-manager', nodes: GUI.addSection({accessor: 'slot'})})

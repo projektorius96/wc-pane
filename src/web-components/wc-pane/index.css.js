@@ -16,3 +16,28 @@ export default function({hidden, position, opacity}){
     return true;
 
 }
+
+export function enableDraggingFor(thisArg){
+    let guiElement = null;
+    function mousemove(e){
+            guiElement.style.position = 'absolute';
+            guiElement.style.left = `${e.pageX}px`;
+            guiElement.style.top = `${e.pageY}px`;
+    }
+    function mouseup(){
+        document.rm('mousemove', mousemove);
+        guiElement = null;
+    }
+    function mousedown(e){
+        if (guiElement === null) {
+            guiElement = e.currentTarget;
+        }
+        const { altKey } = e;
+        if    ( altKey )   {
+            e.preventDefault();
+            document.on('mousemove', mousemove);
+        } 
+    }
+    thisArg.on('mousedown', mousedown)
+    document.on('mouseup', mouseup)
+}

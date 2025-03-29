@@ -1,4 +1,4 @@
-import setStyling from './index.css.js';
+import setStyling, { enableDraggingFor } from './index.css.js';
 
 /**
  * @typedef {Function} Subroutine
@@ -14,6 +14,22 @@ const TRUE = (subroutine) => !Boolean(subroutine);
  */
 export const wc_pane = (new URL(import.meta.url)).pathname.split('/').at(-2);
 customElements.define(wc_pane, class extends HTMLElement {
+
+    
+    static observedAttributes = ['children-count']
+    attributeChangedCallback(propertyName, oldValue, newValue){
+        console.log(propertyName, oldValue, newValue)
+        if (oldValue !== newValue){
+            /* this.style.minWidth = `${100}%` */// # optionally if you need `width`, no less than...
+            this.style.width = `fit-content`;
+        }
+    }
+
+    connectedCallback(){
+
+        if( this.children.length === 0 )  this.style.width = `${30}%`;
+
+    }
 
     constructor({container, draggable = false, hidden = false, position = 'center', opacity = 0.75}){
 
@@ -114,6 +130,10 @@ customElements.define(wc_pane, class extends HTMLElement {
                 ) ) && document.adoptedStyleSheets.push(summary$css);
             }
 
+            if ( this.children.length > 0 ){
+                this.setAttribute('children-count', this.children.length)
+            }
+
             return ({
                 name
             });
@@ -123,28 +143,3 @@ customElements.define(wc_pane, class extends HTMLElement {
     }
 
 })
-
-function enableDraggingFor(thisArg){
-    let guiElement = null;
-    function mousemove(e){
-            guiElement.style.position = 'absolute';
-            guiElement.style.left = `${e.pageX}px`;
-            guiElement.style.top = `${e.pageY}px`;
-    }
-    function mouseup(){
-        document.rm('mousemove', mousemove);
-        guiElement = null;
-    }
-    function mousedown(e){
-        if (guiElement === null) {
-            guiElement = e.currentTarget;
-        }
-        const { altKey } = e;
-        if    ( altKey )   {
-            e.preventDefault();
-            document.on('mousemove', mousemove);
-        } 
-    }
-    thisArg.on('mousedown', mousedown)
-    document.on('mouseup', mouseup)
-}
