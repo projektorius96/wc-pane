@@ -1,8 +1,8 @@
 import { HUD, Input, Label } from "./src/index.js";
-import { name } from './package.json';
+import package_json from './package.json' with { type: 'json' };
 
 document.on('DOMContentLoaded', ()=>{
-    document.title = name;
+    document.title = package_json.name;
 });
 
 const GUI = globalThis.GUI = new HUD({container: document.body, draggable: true, hidden: false, position: 'right', opacity: 1})

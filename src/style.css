@@ -1,0 +1,13 @@
+body, body * {
+    box-sizing: border-box;
+}
+
+body {
+    padding: 8px;
+    margin: 0;
+    overflow: hidden;
+}
+
+input, label, ulist, olist {
+    margin: 8px 0;
+}

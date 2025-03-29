@@ -1,10 +1,16 @@
 import setStyling from './index.css.js';
 
-import { TRUE } from '../../DOMutils.js';
+/**
+ * @typedef {Function} Subroutine
+ * 
+ * @param {Subroutine} subroutine
+ * @returns converts subroutine's returned `undefined` to `true`_ish_ value.
+ */
+const TRUE = (subroutine) => !Boolean(subroutine);
 
 /**
  * @type
- * The `customElements.get(wc_pane)` is top-level parent (entry) element
+ * The `customElements.get(wc_pane)` is top-level parent (a.k.a. "entry") element
  */
 export const wc_pane = (new URL(import.meta.url)).pathname.split('/').at(-2);
 customElements.define(wc_pane, class extends HTMLElement {
@@ -16,7 +22,7 @@ customElements.define(wc_pane, class extends HTMLElement {
         setStyling.call(this, {container, position, opacity, hidden});
 
         if(draggable){
-            enableDraggingTo(this);
+            enableDraggingFor(this);
         }
 
         if (container !== document.body){
@@ -52,7 +58,7 @@ customElements.define(wc_pane, class extends HTMLElement {
                 section.style.cssText = /* style */`
                     display: flex;
                     flex-direction: ${flex_direction};
-                    padding: 4px;
+                    padding: 8px;
                 `;
 
                 section.setAttribute('id', `${accessor}${accessor !== "parent" ? nth+1 : ""}`);
@@ -118,9 +124,10 @@ customElements.define(wc_pane, class extends HTMLElement {
 
 })
 
-function enableDraggingTo(thisArg){
+function enableDraggingFor(thisArg){
     let guiElement = null;
     function mousemove(e){
+            guiElement.style.position = 'absolute';
             guiElement.style.left = `${e.pageX}px`;
             guiElement.style.top = `${e.pageY}px`;
     }

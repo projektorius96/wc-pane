@@ -1,7 +1,5 @@
-// DEV_NOTE (!) # MUST be the very first import statement, especially because of `HTMLElement.extends` upon every other "wc_*" component imported below depends;
-/* === */
+import './style.css'
 import './DOMutils.js';
-/* === */
 import { wc_pane } from './web-components/wc-pane/index.js';
 import { wc_input } from './web-components/wc-input/index.js';
 import { wc_select } from './web-components/wc-select/index.js';
