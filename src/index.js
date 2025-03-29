@@ -7,12 +7,12 @@ import { wc_label } from './web-components/wc-label/index.js';
 import { wc_list } from './web-components/wc-list/index.js';
 
 export {
-    HUD,
+    Pane,
     Label,
     Input,
 }
 
-const HUD = customElements.get(wc_pane);
+const Pane = customElements.get(wc_pane);
 const Label = customElements.get(wc_label);
 const Input = customElements.get(wc_input);
         Input.Select = customElements.get(wc_select);

@@ -1,6 +1,7 @@
 export default function({hidden, position, opacity}){
 
     this.style.cssText = /* style */`
+            overflow: hidden;
             display: ${ hidden ? 'none' : 'flex' };
             justify-self: ${ position };
             opacity: ${ opacity };
@@ -10,7 +11,7 @@ export default function({hidden, position, opacity}){
             border: 2px solid black;
                 border-radius: 0.5em;
             padding: 0.5em;
-            background-color: #d8d8d8;
+            background-color:rgb(232, 232, 232);
     `;
 
     return true;

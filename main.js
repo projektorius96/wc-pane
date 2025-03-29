@@ -1,14 +1,14 @@
-import { HUD, Input, Label } from "./src/index.js";
+import { Pane, Input, Label } from "./src/index.js";
 import package_json from './package.json' with { type: 'json' };
 
 document.on('DOMContentLoaded', ()=>{
     document.title = package_json.name;
 });
 
-const GUI = globalThis.GUI = new HUD({container: document.body, draggable: true, hidden: false, position: 'right', opacity: 1})
-    GUI.addGroup({name: 'slider', nodes: GUI.addSection({/* accessor: 'child' (DEFAULT) , */sectionCount: 2})})
-    GUI.addGroup({name: 'describer', nodes: GUI.addSection({accessor: 'greet'})})
-    GUI.addGroup({name: 'layer-manager', nodes: GUI.addSection({accessor: 'slot'})})
+const GUI = new Pane({container: document.body, draggable: true, hidden: false, position: 'right', opacity: 1})
+    GUI.addGroup({name: 'slider', open: true, nodes: GUI.addSection({/* accessor: 'child' (DEFAULT) , */sectionCount: 2})})
+    GUI.addGroup({name: 'describer', open: !true, nodes: GUI.addSection({accessor: 'greet'})})
+    GUI.addGroup({name: 'layer-manager', override_label: "", open: !true, nodes: GUI.addSection({accessor: 'slot'})})
 
 const rangeParams = {
     min: 1,

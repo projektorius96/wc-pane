@@ -3,9 +3,8 @@ body, body * {
 }
 
 body {
-    padding: 8px;
+    padding: 0;
     margin: 0;
-    overflow: hidden;
 }
 
 input, label, ulist, olist {

@@ -15,10 +15,8 @@ const TRUE = (subroutine) => !Boolean(subroutine);
 export const wc_pane = (new URL(import.meta.url)).pathname.split('/').at(-2);
 customElements.define(wc_pane, class extends HTMLElement {
 
-    
     static observedAttributes = ['children-count']
-    attributeChangedCallback(propertyName, oldValue, newValue){
-        console.log(propertyName, oldValue, newValue)
+    attributeChangedCallback(_, oldValue, newValue){
         if (oldValue !== newValue){
             /* this.style.minWidth = `${100}%` */// # optionally if you need `width`, no less than...
             this.style.width = `fit-content`;
@@ -27,7 +25,19 @@ customElements.define(wc_pane, class extends HTMLElement {
 
     connectedCallback(){
 
-        if( this.children.length === 0 )  this.style.width = `${30}%`;
+        if( this.children.length === 0 ) this.style.width = `${30}%` ;
+
+        window.addEventListener('resize', ()=>{
+            if ( window.screen.orientation.type.includes('portrait') ){                
+                this.style.width = `${100}%`;
+                this.style.position = 'absolute'
+                    this.style.bottom = `${0}px`;
+            } else {
+                this.style.width = 'fit-content';
+                this.style.position = 'static';
+                this.style.bottom = 'unset';
+            }
+        })
 
     }
 
@@ -87,7 +97,7 @@ customElements.define(wc_pane, class extends HTMLElement {
 
     }
 
-    addGroup({ name, override_label = "", nodes = [], open = false, label = true, nestedUnder = null}){
+    addGroup({ name, override_label = "", nodes = [], open = false, label = true, nestedUnder = null }){
 
         const summary$css = new CSSStyleSheet();
                 summary$css.replaceSync(/* style */`
@@ -100,8 +110,8 @@ customElements.define(wc_pane, class extends HTMLElement {
                     }
                 `);
         const summary = document.createElement('summary');
-            summary.id = (override_label || name);
-            summary.textContent = summary.id;
+            summary.id = name;
+            summary.textContent = (override_label || summary.id);
         
         const details = document.createElement('details');
             details.appendChild(summary);
