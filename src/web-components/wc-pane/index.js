@@ -9,11 +9,11 @@ import { TRUE } from '../../DOMutils.js';
 export const wc_pane = (new URL(import.meta.url)).pathname.split('/').at(-2);
 customElements.define(wc_pane, class extends HTMLElement {
 
-    constructor({container, position, minWidth, draggable = false, opacity = 0.75, hidden = false}){
+    constructor({container, draggable = false, hidden = false, position = 'center', opacity = 0.75}){
 
         super();
         
-        setStyling.call(this, {container, position, minWidth, opacity, hidden});
+        setStyling.call(this, {container, position, opacity, hidden});
 
         if(draggable){
             enableDraggingTo(this);
@@ -97,7 +97,7 @@ customElements.define(wc_pane, class extends HTMLElement {
 
         if ( TRUE( details.append(...nodes) ) ) {
 
-            if (nestedUnder !== null && nestedUnder instanceof HTMLElement){
+            if ( nestedUnder !== null && nestedUnder instanceof HTMLElement ){
                 details.style.width = CSS.percent(100).toString()
                 TRUE( nestedUnder.append(
                     details
