@@ -33,19 +33,23 @@ customElements.define(wc_pane, class extends HTMLElement {
                 this.style.position = 'absolute'
                     this.style.bottom = `${0}px`;
             } else {
+                this.style.display = 'flex';
+                this.style.justifySelf = `${ this.options.position }`;
                 this.style.width = 'fit-content';
-                this.style.position = 'static';
-                this.style.bottom = 'unset';
+                this.style.position = 'static'
+                this.style.bottom = 'auto';
             }
         })
 
     }
 
-    constructor({container, draggable = false, hidden = false, position = 'center', opacity = 0.75}){
-
-        super();
+    constructor({container, draggable = false, hidden = false, position = 'right', opacity = 0.75}){
         
-        setStyling.call(this, {container, position, opacity, hidden});
+        setStyling.call( super() , {container, position, opacity, hidden});
+
+        Object.assign(this, { options: {
+            position
+        } })
 
         if(draggable){
             enableDraggingFor(this);
