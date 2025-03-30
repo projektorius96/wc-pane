@@ -1,12 +1,10 @@
 # Project name: wc-pane
 
+> Yet another web-based GUI that takes the functionality as its first priority...
+
 ### HOW TO USE
 
-<u>Consider the following project's hierarchy, the hierarchy as follows</u>:
-
-. <br>
-|- ./src/ : _where index.js is the entry file of "wc-pane" itself_ <br>
-|-- /web-components/wc-pane/ – _where index.js is the top level element (i.e. entry) of wc-pane (i.e. GUI) itself_ <br>
+> See `./main.js` found in the root of the project's file hierarchy, it encompasses most of the uses cases, otherwise see `constructor(){}` defined within `./src/web-components/wc-pane/index.js`, and examing its JSDocs notations.
 
 ---
 
@@ -14,16 +12,14 @@
 
 #### Draggable GUI ? – Not a problem !
 
-1.1 set {`draggable: true`} during **wc-pane** (GUI) initialization; <br> 
-1.2 press and keep `MouseLeft+Alt` (`MouseLeft+Option` on MacOS) whilst dragging your instance of GUI over the viewport to desired position.
-
-#### Dockable GUI ? - Picture-in-Picture (PiP) API comes to rescue [EXPERIMENTAL FEATURE]
-
-> Mouse with your primary pointer (e.g. mouse) over GUI's element **wc-pane** instance on viewport of your browser and double click whilst the `ctrlKey` (`command` on MacOS) is being pressed with onhold, it will transfer the **wc-pane** instance to dedicated PiP controlled window;to do opposite, press on native exit button, i.e. "X" ("red button" on MacOS) found in the "titlebar" of PiP instantiated window;
+1.1 Make sure you set `new Pane({draggable: true})` during **wc-pane** (GUI) initialization; <br> 
+1.2 Press and keep `MouseLeft+Alt` (or `MouseLeft+Option` on MacOS) whilst dragging your instance of GUI over the viewport to desired position.
 
 ---
 
-> Found a bug? Please raise an issue.
+### Contribution
+
+> Found a bug ? - Please raise an issue on this repo, or if you a big fan of vanilla JavaScript and want to contribute, please fork the project, modify and pull request so I could review ! 
 
 ---
 
