@@ -25,7 +25,7 @@ customElements.define(wc_pane, class extends HTMLElement {
 
     connectedCallback(){
 
-        if( this.children.length === 0 ) this.style.width = `${30}%` ;
+        if( this.children.length === 0 ) this.style.minWidth = `${this.options.minWidth}%` ;
 
         window.addEventListener('resize', ()=>{
             if ( window.screen.orientation.type.includes('portrait') ){                
@@ -43,12 +43,14 @@ customElements.define(wc_pane, class extends HTMLElement {
 
     }
 
-    constructor({container, draggable = false, hidden = false, position = 'right', opacity = 0.75}){
+    constructor({container, draggable = false, hidden = false, position = 'right', opacity = 0.75, minWidth = 20}){
         
         setStyling.call( super() , {container, position, opacity, hidden});
 
         Object.assign(this, { options: {
             position
+            ,
+            minWidth
         } })
 
         if(draggable){
