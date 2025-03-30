@@ -27,31 +27,19 @@ customElements.define(wc_pane, class extends HTMLElement {
 
         if( this.children.length === 0 ) this.style.minWidth = `${this.options.minWidth}%` ;
 
-        window.addEventListener('resize', ()=>{
-            if ( window.screen.orientation.type.includes('portrait') ){                
-                this.style.width = `${100}%`;
-                this.style.position = 'absolute'
-                    this.style.bottom = `${0}px`;
-            } else {
-                this.style.display = 'flex';
-                this.style.justifySelf = `${ this.options.position }`;
-                this.style.width = 'fit-content';
-                this.style.position = 'static'
-                this.style.bottom = 'auto';
-            }
-        })
-
     }
 
-    constructor({container, draggable = false, hidden = false, position = 'right', opacity = 0.75, minWidth = 20}){
+    constructor({id = '', container, draggable = false, hidden = false, resizeOnMobile = true, position = 'right', opacity = 1, minWidth = 20}){
         
-        setStyling.call( super() , {container, position, opacity, hidden});
+        setStyling.call( super() , {container, position, opacity, hidden, resizeOnMobile});
 
         Object.assign(this, { options: {
             position
             ,
             minWidth
         } })
+
+        this.id = id || this.tagName.toLowerCase();
 
         if(draggable){
             enableDraggingFor(this);
