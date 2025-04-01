@@ -11,6 +11,11 @@ customElements.define(wc_label, class extends HTMLLabelElement {
         `;
         this.textContent = String(description);
 
+        /**
+         * @alias
+         */
+        this.text = this.textContent;
+
         return this;
 
     }
