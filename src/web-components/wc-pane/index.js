@@ -57,7 +57,7 @@ customElements.define(wc_pane, class extends HTMLElement {
         this.id = id || this.tagName.toLowerCase();
 
         if(draggable){
-            enableDraggingFor(this);
+            enableDraggingFor(this, position);
         }
 
         if (container !== document.body){

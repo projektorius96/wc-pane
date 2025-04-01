@@ -50,9 +50,12 @@ export default function({hidden, position, opacity, resizeOnMobile}){
 
 }
 
-export function enableDraggingFor(thisArg){
+export function enableDraggingFor(thisArg, position){
     let guiElement = null;
     function mousemove(e){
+            
+            if (position === 'right') guiElement.style.right = 'unset' ;
+
             guiElement.style.position = 'absolute';
             guiElement.style.left = `${e.pageX}px`;
             guiElement.style.top = `${e.pageY}px`;
