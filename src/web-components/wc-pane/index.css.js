@@ -1,6 +1,6 @@
 export default function({hidden, position, opacity, resizeOnMobile}){
 
-    this.style.cssText = /* style */`
+    this.style.cssText = /* css */`
             opacity: ${ opacity };
             display: ${ hidden ? 'none' : 'inline-flex' };
                 justify-self: ${ position };

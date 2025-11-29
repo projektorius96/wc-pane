@@ -23,7 +23,7 @@ customElements.define(wc_pane, class extends HTMLElement {
         }
     }
 
-    connectedCallback(){
+    connectedCallback() {
 
         if( this.children.length === 0 ) this.style.minWidth = `${this.options.minWidth}%` ;
 
@@ -44,7 +44,7 @@ customElements.define(wc_pane, class extends HTMLElement {
      * 
      * @returns {Object} `{name}` - so it can be used in cascading operations with DOM locators
      */
-    constructor({id = '', container = document.body, draggable = false, hidden = false, resizeOnMobile = true, position = 'right', opacity = 1, minWidth = 20}){
+    constructor({id = '', container = document.body, draggable = false, hidden = false, resizeOnMobile = true, position = 'right', opacity = 1, minWidth = 20}) {
         
         setStyling.call( super() , {container, position, opacity, hidden, resizeOnMobile});
 
@@ -56,14 +56,13 @@ customElements.define(wc_pane, class extends HTMLElement {
 
         this.id = id || this.tagName.toLowerCase();
 
-        if(draggable){
+        if(draggable) {
             enableDraggingFor(this, position);
         }
 
-        if (container !== document.body){
+        if (container !== document.body) {
             container.prepend(this);
-        }
-        else {
+        } else {
             document.body.prepend(this);
         }
 
@@ -71,13 +70,13 @@ customElements.define(wc_pane, class extends HTMLElement {
 
     }
 
-    find({name, index = 0}){
+    find({name, index = 0}) {
         
         return document.getElementsByName(name).item(index);
         
     }
 
-    addSection({sectionCount = 1, accessor = "child", flex_direction = "column"}){
+    addSection({sectionCount = 1, accessor = "child", flex_direction = "column"}) {
 
         return (
             Array.from({length: sectionCount})
@@ -100,7 +99,7 @@ customElements.define(wc_pane, class extends HTMLElement {
 
     }
 
-    addGroup({ name, override_label = "", nodes = [], open = false, label = true, nestedUnder = null }){
+    addGroup({ name, override_label = "", nodes = [], open = false, label = true, nestedUnder = null }) {
 
         const summary$css = new CSSStyleSheet();
                 summary$css.replaceSync(/* style */`
@@ -132,7 +131,7 @@ customElements.define(wc_pane, class extends HTMLElement {
 
         if ( TRUE( details.append(...nodes) ) ) {
 
-            if ( nestedUnder !== null && nestedUnder instanceof HTMLElement ){
+            if ( nestedUnder !== null && nestedUnder instanceof HTMLElement ) {
                 details.style.width = CSS.percent(100).toString()
                 TRUE( nestedUnder.append(
                     details
@@ -143,7 +142,7 @@ customElements.define(wc_pane, class extends HTMLElement {
                 ) ) && document.adoptedStyleSheets.push(summary$css);
             }
 
-            if ( this.children.length > 0 ){
+            if ( this.children.length > 0 ) {
                 this.setAttribute('children-count', this.children.length)
             }
 

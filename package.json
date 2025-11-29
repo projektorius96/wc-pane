@@ -5,7 +5,7 @@
   "type": "module",
   "main": "./src/index.js",
   "devDependencies": {
-    "vite": "^6.3.3"
+    "vite": "^7.2.4"
   },
   "dependencies": {
     "sortablejs": "^1.15.6"

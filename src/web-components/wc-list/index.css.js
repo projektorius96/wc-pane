@@ -1,5 +1,5 @@
 export default function setStyling(attrs){
-    this.style.cssText = /* style */`
+    this.style.cssText = /* css */`
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -9,7 +9,7 @@ export default function setStyling(attrs){
     `;
     const attrsCssRuleOverride = new CSSStyleSheet();
         attrsCssRuleOverride
-        .insertRule(attrs.cssRuleOverride || /* style */`
+        .insertRule(attrs.cssRuleOverride || /* css */`
             ${this.tagName.toLowerCase()} > ul, ol {
                 margin: 0;
                 padding: 0;

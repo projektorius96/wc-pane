@@ -9,9 +9,9 @@ customElements.define(wc_input, class extends HTMLInputElement {
         }
     }
 
-    constructor({name, type, attrs}){
+    constructor({name, type, attrs}) {
 
-        if( setStyling.call( super() , type, attrs) ){
+        if( setStyling.call( super() , type, attrs) ) {
 
             this.#setAttributes(this, attrs);
                 this.name = name || type;

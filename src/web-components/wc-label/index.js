@@ -1,11 +1,11 @@
 export const wc_label = (new URL(import.meta.url)).pathname.split('/').at(-2);
 customElements.define(wc_label, class extends HTMLLabelElement {
 
-    constructor(description = ''){
+    constructor(description = '') {
         
         super();
         
-        this.style.cssText = /* style */`
+        this.style.cssText = /* css */`
             width: 100%;
             text-align: center;
         `;
