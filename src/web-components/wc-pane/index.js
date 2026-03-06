@@ -1,4 +1,6 @@
-import setStyling, { enableDraggingFor } from './index.css.js';
+import setStyling from './index.css.js';
+import { enableDraggingFor } from '../../utils/dragging.js';
+import { applyFlexColumnStyles } from '../../styles/shared.js';
 
 /**
  * @typedef {Function} Subroutine
@@ -44,14 +46,15 @@ customElements.define(wc_pane, class extends HTMLElement {
      * 
      * @returns {Object} `{name}` - so it can be used in cascading operations with DOM locators
      */
-    constructor({id = '', container = document.body, draggable = false, hidden = false, resizeOnMobile = true, position = 'right', opacity = 1, minWidth = 20}) {
+    constructor({id = '', container = document.body, draggable = false, hidden = false, resizeOnMobile = true, position = 'right', opacity = 1, minWidth = 20, mode = 'default'}) {
         
-        setStyling.call( super() , {container, position, opacity, hidden, resizeOnMobile});
+        setStyling.call( super() , {container, position, opacity, hidden, resizeOnMobile, mode});
 
         Object.assign(this, { options: {
             position
             ,
-            minWidth
+            minWidth,
+            mode
         } })
 
         this.id = id || this.tagName.toLowerCase();
@@ -83,11 +86,9 @@ customElements.define(wc_pane, class extends HTMLElement {
             .map(()=> document.createElement('section') )
             .map((section, nth)=>{
 
-                section.style.cssText = /* style */`
-                    display: flex;
-                    flex-direction: ${flex_direction};
-                    padding: 8px;
-                `;
+                applyFlexColumnStyles(section);
+                section.style.flexDirection = flex_direction;
+                section.style.padding = '8px';
 
                 section.setAttribute('id', `${accessor}${accessor !== "parent" ? nth+1 : ""}`);
                 section.setAttribute('name', `${accessor}${accessor !== "parent" ? nth+1 : ""}`);
@@ -100,17 +101,6 @@ customElements.define(wc_pane, class extends HTMLElement {
     }
 
     addGroup({ name, override_label = "", nodes = [], open = false, label = true, nestedUnder = null }) {
-
-        const summary$css = new CSSStyleSheet();
-                summary$css.replaceSync(/* style */`
-                    summary::marker {
-                        content: "✅";
-                    }
-
-                    summary.open::marker {
-                        content: "❎";
-                    }
-                `);
         const summary = document.createElement('summary');
             summary.id = name;
             summary.textContent = (override_label || summary.id);
@@ -118,16 +108,8 @@ customElements.define(wc_pane, class extends HTMLElement {
         const details = document.createElement('details');
             details.appendChild(summary);
             details.name = name;
-            details.open = open;
-            
-            // Set initial marker based on the open state
-            summary.classList.toggle('open', details.open);
+            if (open) details.setAttribute('open', '');
             if (!label) summary.style.display = 'none';
-
-            // Add event listener for toggle event
-            details.addEventListener('toggle', ()=>{
-                summary.classList.toggle('open', details.open);
-            });
 
         if ( TRUE( details.append(...nodes) ) ) {
 
@@ -135,11 +117,11 @@ customElements.define(wc_pane, class extends HTMLElement {
                 details.style.width = CSS.percent(100).toString()
                 TRUE( nestedUnder.append(
                     details
-                ) ) && document.adoptedStyleSheets.push(summary$css);
+                ) );
             } else {
                 TRUE( this.append(
                     details
-                ) ) && document.adoptedStyleSheets.push(summary$css);
+                ) );
             }
 
             if ( this.children.length > 0 ) {

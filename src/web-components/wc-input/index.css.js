@@ -1,9 +1,9 @@
+import { applyFullWidthControlStyles } from '../../styles/shared.js';
+
 export default function setStyling(type, attrs) {
 
     defaults:;
-        this.style.width = "100%";
-        this.style.margin = 0;
-        this.style.padding = 0;
+        applyFullWidthControlStyles(this);
 
     switch(type){
         case 'text':

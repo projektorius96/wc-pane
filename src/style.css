@@ -12,3 +12,44 @@ body {
 input, label, ulist, olist {
     margin: 8px 0;
 }
+
+wc-pane[data-resize-on-mobile="true"] {
+    position: absolute;
+    z-index: 999;
+}
+
+@media (orientation: portrait) {
+    wc-pane[data-resize-on-mobile="true"] {
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+}
+
+@media (orientation: landscape) {
+    wc-pane[data-resize-on-mobile="true"][data-position="left"] {
+        left: 0;
+        bottom: auto;
+    }
+
+    wc-pane[data-resize-on-mobile="true"][data-position="right"] {
+        right: 0;
+        bottom: auto;
+    }
+}
+
+wc-pane[data-mode="popover"] {
+    position: fixed;
+    inset-block: auto 0;
+    inset-inline: 0;
+    margin-inline: auto;
+}
+
+wc-pane details > summary::marker {
+    content: "✅";
+}
+
+wc-pane details[open] > summary::marker {
+    content: "❎";
+}
