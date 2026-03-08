@@ -1,20 +1,17 @@
 export const wc_label = (new URL(import.meta.url)).pathname.split('/').at(-2);
 customElements.define(wc_label, class extends HTMLLabelElement {
 
-    constructor(description = '') {
+    constructor({description = '', textAlign = 'left'}) {
         
-        super();
-        
-        this.style.cssText = /* css */`
-            width: 100%;
-            text-align: center;
-        `;
-        this.textContent = String(description);
+        if ( super() ) {
 
-        /**
-         * @alias
-         */
-        this.text = this.textContent;
+            this.style.cssText = /* css */`
+                width: 100%;
+                text-align: ${textAlign};
+            `;
+            this.textContent = description;
+
+        }
 
         return this;
 
@@ -23,5 +20,5 @@ customElements.define(wc_label, class extends HTMLLabelElement {
 }
 , 
 {
-    extends: HTMLElement.extends?.(HTMLLabelElement)
+    extends: 'label'
 })

@@ -1,15 +1,19 @@
-// DEV_NOTE # the package downloaded from registry (such as npmjs, yarn, etc.) would rather contain absolute, not relative imports!
+import { Print } from "./utils.js";
 import { Pane, Input, Label } from "../src/index.js";
-import package_json from '../package.json' with { type: 'json' };
 
-document.on('DOMContentLoaded', ()=>{
-    document.title = package_json.name;
-});
+/**
+ * @alias
+ */
+const [ID, ATTR_TYPE, UI_EVENT] = 
+    Array(3).fill(Print)
+    ,
+    { text: input, range, checkbox } = ATTR_TYPE
+    ;
 
-const GUI = new Pane({container: document.body, draggable: true, hidden: false, position: 'right', opacity: 1})
-    GUI.addGroup({name: 'slider', open: true, nodes: GUI.addSection({/* accessor: 'child' (DEFAULT) , */sectionCount: 2})})
-    GUI.addGroup({name: 'describer', open: !true, nodes: GUI.addSection({accessor: 'greet'})})
-    GUI.addGroup({name: 'layer-manager', override_label: "", open: !true, nodes: GUI.addSection({accessor: 'slot'})})
+const GUI = new Pane({container: document.body, draggable: true, hidden: false, position: Print.right, opacity: 1})
+    GUI.addGroup({name: ID.slider, open: true, nodes: GUI.addSection({sectionCount: 2, /* accessor: 'child' (DEFAULT) , */})})
+    GUI.addGroup({name: ID.describer, open: !true, nodes: GUI.addSection({})})
+    GUI.addGroup({name: ID.layer_manager, override_label: "layer-manager", open: !true, nodes: GUI.addSection({accessor: Print.slot})})
 
 const rangeParams = {
     min: 1,
@@ -19,34 +23,32 @@ const rangeParams = {
 }
 
 /* === GUI.describer === */
-const describer = GUI.find({name: 'describer'}).children;
-describer.greet1.append(
-        new Label('name it'),
-        new Input({name: 'text_handle', type: 'text'})
+const describer = GUI.find({name: ID.describer}).children;
+describer.child1.append(
+        /* new Label({description: "Sticky note"}), */
+        new Input({name: ID.text_handle, type: input})
 )
-GUI.find({name: 'text_handle'}).on('input', (e)=>console.log(e.target.value))
+GUI.find({name: ID.text_handle}).on(UI_EVENT.input, (e)=>console.log(e.target.value))
 /* === GUI.slider === */
-const slider = GUI.find({name: 'slider'}).children;
-const range = new Input({name: 'range', attrs: {...rangeParams}})
+const slider = GUI.find({name: ID.slider}).children;
 slider.child1.append(
-    new Label('rotation'),
-    range
+    /* new Label({description: "rotation"}), */
+    new Input({name: ID.range, type: range, attrs: {...rangeParams}})
 );
-GUI.find(range).on('input', function(){
+GUI.find({name: ID.range}).on(UI_EVENT.input, function() {
     console.log(this.value)
 });
 /* === GUI.checkboxer === */
-const checkboxer = {name: 'tick1'}
 slider.child1.append(
-    new Label('clock-wise'),
-    new Input({...checkboxer, type: 'checkbox'/* , attrs: {cboxScaling: 1.5} */})
+    new Label({description: "clock wise", textAlign: Print.center}),
+    new Input({name: Print.tick1, type: checkbox/* , attrs: {cboxScaling: 1.5} */})
 )
-GUI.find(checkboxer).on('change', (e)=>console.log(e.target.checked))
+GUI.find({name: Print.tick1}).on(UI_EVENT.change, (e)=>console.log(e.target.checked))
 /* === GUI.layerManager */
-const layerManager = GUI.find({name: 'layer-manager'}).children;
+const layerManager = GUI.find({name: ID.layer_manager}).children;
 layerManager.slot1.appendChild(
     new Input.List({
-    name: "layer-manager", 
+    name: ID.layer_manager, 
     attrs: {
         loopData: [
             function(item, index){ 
@@ -56,13 +58,13 @@ layerManager.slot1.appendChild(
             }
             , 
             [
-                ...Array.from({length: 3}).fill(Math.random())
+                ...Array.from({length: 3}).fill( Math.random() )
             ]
         ], 
         sortableConfig: {
             animation: 150,
-            onChange: function(e){
-                    console.log(e)
+            onChange: function(e) {
+                    console.log(e);
             }
         }
     }

@@ -1,18 +1,8 @@
-export default function setStyling(type, attrs) {
+import { applyFullWidthControlStyles } from '../../styles/shared.js';
 
-    defaults:;
-        this.style.width = "100%";
-        this.style.margin = 0;
-        this.style.padding = 0;
+export default function setStyling() {
 
-    switch(type){
-        case 'text':
-            this.style.backgroundColor = "#F7F7F7";
-        break;
-        case 'checkbox':
-            this.style.transform = `scale(${attrs?.cboxScaling || 1.24})`;
-        break;
-    }
+    applyFullWidthControlStyles(this);
 
     return true;
 

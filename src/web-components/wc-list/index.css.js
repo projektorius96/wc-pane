@@ -1,12 +1,9 @@
+import { applyFullWidthControlStyles, applyFlexColumnStyles } from '../../styles/shared.js';
+
 export default function setStyling(attrs){
-    this.style.cssText = /* css */`
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        list-style-type: none;
-    `;
+    applyFlexColumnStyles(this);
+    applyFullWidthControlStyles(this);
+    this.style.listStyleType = 'none';
     const attrsCssRuleOverride = new CSSStyleSheet();
         attrsCssRuleOverride
         .insertRule(attrs.cssRuleOverride || /* css */`
