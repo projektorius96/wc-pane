@@ -18,17 +18,10 @@ export const wc_pane = (new URL(import.meta.url)).pathname.split('/').at(-2);
 customElements.define(wc_pane, class extends HTMLElement {
 
     static observedAttributes = ['children-count']
-    attributeChangedCallback(_, oldValue, newValue){
-        if (oldValue !== newValue){
-            /* this.style.minWidth = `${100}%` */// # optionally if you need `width`, no less than...
+    attributeChangedCallback(_, oldValue, newValue) {
+        if (oldValue !== newValue) {
             this.style.width = `fit-content`;
         }
-    }
-
-    connectedCallback() {
-
-        if( this.children.length === 0 ) this.style.minWidth = `${this.options.minWidth}%` ;
-
     }
 
     /**
@@ -39,35 +32,30 @@ customElements.define(wc_pane, class extends HTMLElement {
      * @param {String} `options.id` - identifier | **default**:`this.tagName.toLowerCase()` (_GOOD PRACTICE TO USE YOUR OWN_)
      * @param {Boolean} `options.draggable` - iff `options.draggable:true`, see `./README.md` "Features" heading | **default**:`false` 
      * @param {Boolean} `options.hidden` - a flag that controls visibility of `this` element | **default**:`false`, hence "visible"
-     * @param {Boolean} `options.resizeOnMobile` - controls responsiveness of `this` element itself | **default**:`true` (_RECOMMENDED_)
      * @param {CSSRule} `options.position` CSS-related option | **default**:`right` : (`right|left`), hence oriented towards "right" of viewport
      * @param {CSSRule} `options.opacity`  CSS-related option | **default**:`1` : (`[0..1]`), useful if GUI must not overalap other HTML elements in the background
      * @param {CSSRule} `options.minWidth` CSS-related option | **default**:`20` : (`[0..100]`) - water is wet - it does control minimum width of `this` element
      * 
      * @returns {Object} `{name}` - so it can be used in cascading operations with DOM locators
      */
-    constructor({id = '', container = document.body, draggable = false, hidden = false, resizeOnMobile = true, position = 'right', opacity = 1, minWidth = 20, mode = 'default'}) {
-        
-        setStyling.call( super() , {container, position, opacity, hidden, resizeOnMobile, mode});
+    constructor({id = '', container = document.body, draggable = false, hidden = false, position = 'left', opacity = 1, minWidth = 20}) {
 
-        Object.assign(this, { options: {
-            position
-            ,
-            minWidth,
-            mode
-        } })
+        const cssWasApplied = setStyling.call( super() , { hidden, position, opacity, minWidth });
+            if (cssWasApplied){
 
-        this.id = id || this.tagName.toLowerCase();
+                this.id = id || this.tagName.toLowerCase();
 
-        if(draggable) {
-            enableDraggingFor(this, position);
-        }
+                if (container !== document.body) {
+                    container.prepend(this);
+                } else {
+                    document.body.prepend(this);
+                }
 
-        if (container !== document.body) {
-            container.prepend(this);
-        } else {
-            document.body.prepend(this);
-        }
+                if(draggable) {
+                    enableDraggingFor.call(this/* , position */);
+                }
+
+            }
 
         return this;
 

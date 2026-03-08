@@ -1,4 +1,4 @@
-export default function({hidden, position, opacity, resizeOnMobile, mode}){
+export default function({opacity, hidden, position, minWidth}){
 
     this.style.cssText = /* css */`
             opacity: ${ opacity };
@@ -14,14 +14,20 @@ export default function({hidden, position, opacity, resizeOnMobile, mode}){
             background-color:rgb(232, 232, 232);
     `;
 
-    if (resizeOnMobile){
-        this.dataset.resizeOnMobile = 'true';
+    /**
+     * @description iff `window.innerHeight` greater than `window.innerWidth`, then the `isMobile` will hold `true` (hence "Mobile"), otherwise it holds `false`, meaning it includes `landscape` (hence "Desktop")
+     */
+    const isMobile = 
+        screen.orientation.type.includes('portrait');
+    if (isMobile) {
+        this.dataset.isMobile = isMobile;
+        this.style.minWidth = `${100}%`;
+        this.style.bottom = 0;
     } else {
-        delete this.dataset.resizeOnMobile;
+        this.dataset.isMobile = isMobile;
+        this.style.minWidth = `${minWidth}%`;
+        this.style.bottom = 'auto';
     }
-
-    this.dataset.position = position;
-    this.dataset.mode = mode || 'default';
 
     return true;
 

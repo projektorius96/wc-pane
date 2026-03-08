@@ -1,10 +1,11 @@
-export function enableDraggingFor(thisArg, position) {
+export function enableDraggingFor(/* thisArg *//* , position */) {
+
     let guiElement = null;
 
     function mousemove(e) {
         if (!guiElement) return;
 
-        if (position === 'right') guiElement.style.right = 'unset';
+        // if (position === 'right') guiElement.style.right = 'unset';
 
         guiElement.style.position = 'absolute';
         guiElement.style.left = `${e.pageX}px`;
@@ -27,7 +28,7 @@ export function enableDraggingFor(thisArg, position) {
         }
     }
 
-    thisArg.on('mousedown', mousedown);
+    /* thisArg */this.on('mousedown', mousedown);
     document.on('mouseup', mouseup);
 }
 
