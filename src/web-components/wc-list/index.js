@@ -32,10 +32,12 @@ customElements.define(wc_list, class extends HTMLLIElement {
             })
         }
 
+        return this;
+
     }
 
 }
 ,
 {
-    extends: HTMLElement.extends?.(HTMLLIElement)
+    extends: 'li'
 })

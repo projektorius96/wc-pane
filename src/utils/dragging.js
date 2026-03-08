@@ -1,4 +1,4 @@
-export function enableDraggingFor(/* thisArg *//* , position */) {
+export function enableDraggingFor() {
 
     let guiElement = null;
 
@@ -28,7 +28,7 @@ export function enableDraggingFor(/* thisArg *//* , position */) {
         }
     }
 
-    /* thisArg */this.on('mousedown', mousedown);
+    this.on('mousedown', mousedown);
     document.on('mouseup', mouseup);
 }
 

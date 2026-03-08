@@ -22,11 +22,13 @@ export default function({opacity, hidden, position, minWidth}){
     if (isMobile) {
         this.dataset.isMobile = isMobile;
         this.style.minWidth = `${100}%`;
-        this.style.bottom = 0;
+        this.style.position = 'absolute';
+            this.style.bottom = 0;
     } else {
         this.dataset.isMobile = isMobile;
         this.style.minWidth = `${minWidth}%`;
-        this.style.bottom = 'auto';
+        this.style.position = '';
+            this.style.bottom = 'auto';
     }
 
     return true;

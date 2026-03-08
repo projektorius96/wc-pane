@@ -11,7 +11,7 @@ customElements.define(wc_input, class extends HTMLInputElement {
 
     constructor({name, type, attrs}) {
 
-        if( setStyling.call( super() , type, attrs) ) {
+        if( setStyling.call( super() ) ) {
 
             this.#setAttributes(this, attrs);
                 this.name = name || type;
@@ -26,5 +26,5 @@ customElements.define(wc_input, class extends HTMLInputElement {
 }
 , 
 {
-    extends: HTMLElement.extends?.(HTMLInputElement)
+    extends: 'input'
 })

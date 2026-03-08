@@ -1,5 +1,5 @@
-:root,
-::after
+*,
+::after,
 ::before {
     box-sizing: border-box;
 }
@@ -9,9 +9,7 @@ body {
     margin: 0;
 }
 
-input, label, ulist, olist {
-    margin: 8px 0;
-}
+/* === wc-pane === */
 
 wc-pane details > summary::marker {
     content: "✅";

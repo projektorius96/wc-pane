@@ -90,6 +90,7 @@ customElements.define(wc_pane, class extends HTMLElement {
 
     addGroup({ name, override_label = "", nodes = [], open = false, label = true, nestedUnder = null }) {
         const summary = document.createElement('summary');
+            summary.style.userSelect = 'none';
             summary.id = name;
             summary.textContent = (override_label || summary.id);
         
@@ -116,9 +117,7 @@ customElements.define(wc_pane, class extends HTMLElement {
                 this.setAttribute('children-count', this.children.length)
             }
 
-            return ({
-                name
-            });
+            return this;
 
         }
 

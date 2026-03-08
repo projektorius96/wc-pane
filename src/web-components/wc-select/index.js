@@ -5,19 +5,23 @@ customElements.define(wc_select, class extends HTMLSelectElement {
 
     constructor({name, attrs}) {
         
-        super();
+        if ( super() ) {
 
-        this.style.width = "100%";
-        this.name = name;
-        
-        if (attrs?.loopData) {
-            buildFromLoopData(this, attrs.loopData);
+            this.style.width = "100%";
+            this.name = name;
+            
+            if (attrs?.loopData) {
+                buildFromLoopData(this, attrs.loopData);
+            }
+
         }
+
+        return this;
         
     }
 
 }
 , 
 {
-    extends: HTMLElement.extends?.(HTMLSelectElement)
+    extends: 'select'
 })
