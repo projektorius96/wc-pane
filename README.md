@@ -1,25 +1,21 @@
-# Project name: wc-pane
+# Project name: wc-pane (2026 Q1 edition)
 
-> Yet another web-technology-based GUI that takes the functionality as its first priority.
-
-### HOW TO USE
-
-> See `./main.js` found in the root of the project's file hierarchy, it encompasses most of the uses cases, otherwise see `constructor(){}` defined within `./src/web-components/wc-pane/index.js`, as well as do examine its JSDocs notations.
+> Yet another floating GUI, the GUI that prioritizes function over looks...
 
 ---
 
 ### Features
 
-#### Draggable GUI ? – Not a problem !
+#### Draggable GUI? – Not a problem!
+
+> **NOTE**: Mobile version is inert to draggability feature, thus it's Desktop-only!
 
 1.1 Make sure you set `new Pane({draggable: true})` during **wc-pane** (GUI) initialization; <br> 
-1.2 Press and keep `MouseLeft+Alt` (or `MouseLeft+Option` on MacOS) whilst dragging your visible instance of GUI over the viewport to desired position.
+1.2 Press and keep `MouseLeft+Alt` (or `MouseLeft+Option` on MacOS) whilst dragging your visible instance of floating GUI over the viewport to the desired position.
 
----
+#### Sortable lists? – Not a problem!
 
-### Contribution
-
-> Found a bug ? - Please raise an issue on this repo, or if you a big fan of vanilla JavaScript and want to contribute towards the project, please fork it, modify and pull request so I could review it, cheers ! 
+- Powered by a well-maintained [SortableJS](https://github.com/SortableJS/Sortable)
 
 ---
 
