@@ -88,7 +88,7 @@ customElements.define(wc_pane, class extends HTMLElement {
 
     }
 
-    addGroup({ name, override_label = "", nodes = [], open = false, label = true, nestedUnder = null }) {
+    addGroup({ name, override_label = "", nodes = [], collapse = false, label = true, nestedUnder = null }) {
         const summary = document.createElement('summary');
             summary.style.userSelect = 'none';
             summary.id = name;
@@ -97,7 +97,7 @@ customElements.define(wc_pane, class extends HTMLElement {
         const details = document.createElement('details');
             details.appendChild(summary);
             details.name = name;
-            if (open) details.setAttribute('open', '');
+            if (!collapse) details.setAttribute('open', !collapse);
             if (!label) summary.style.display = 'none';
 
         if ( TRUE( details.append(...nodes) ) ) {
