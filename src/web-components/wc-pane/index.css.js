@@ -8,7 +8,7 @@ export default function({opacity, hidden, position, minWidth}){
             user-select: none;
             overflow: hidden;
             height:100%;
-            justify-content: space-between; 
+            justify-content: space-around; 
             width: fit-content;
             border: 2px solid black;
                 border-radius: 0.5em;
