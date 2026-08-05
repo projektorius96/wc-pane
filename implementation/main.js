@@ -1,4 +1,4 @@
-import './renderer/init.js?'
+import './renderer/init.js'
 import { Pane, Input, Label } from "../src/index.js";
 import { Print } from "./utils";
 
