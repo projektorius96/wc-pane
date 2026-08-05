@@ -26,26 +26,6 @@ export default class {
             { Converters } = Trigonometry
         ;
         
-        const sense = new Map([
-            [false, -1],
-            [true, 1]
-        ]);
-        sliderSwitch.on(ENUMS.UI_EVENT.change, (e)=>{
-            isChecked = e.target.checked;
-        })
-        sliderSwitch.dispatchEvent(new Event(ENUMS.UI_EVENT.input))
-        let
-            isChecked = false
-            ,
-            allPoints =
-                Trigonometry.setRange(0, 1, slider.rangeParams.max).map((deg) => {
-                    return ({
-                        x: /* ____________________________________________ */ 1 * Math.cos(Converters.degToRad(sense.get(isChecked) * deg))/*  - 1 */  /* <== removes the annoying radius visible, when the shape is not filled */,
-                        y: -1 * Math.sin(Converters.degToRad(sense.get(isChecked) * deg)),
-                    });
-                })
-        ;
-        
         const
             [container] = this.setup({ XMLSVG })
         ;    
@@ -72,6 +52,14 @@ export default class {
                     switch (PATH_ID) {/* start_switch:; */
                         case ENUMS.ID.circle_top : {
 
+                            let allPoints = []
+
+                            const sense = new Map([
+                                [false, -1],
+                                [true, 1]
+                            ]);
+
+                            let isChecked = false;
                             sliderSwitch.on(ENUMS.UI_EVENT.change, (e)=>{
                                 isChecked = e.target.checked;
                                     allPoints =
@@ -82,7 +70,7 @@ export default class {
                                             });
                                         })
                             })
-                            sliderSwitch.dispatchEvent(new Event(ENUMS.UI_EVENT.input))
+                            sliderSwitch.dispatchEvent(new Event(ENUMS.UI_EVENT.change))
 
                             slider.on(ENUMS.UI_EVENT.input, function() {
 

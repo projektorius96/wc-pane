@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title></title>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <script type="module" src="./main.js"></script>
-  <style>
+<title></title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+<script type="module" src="./main.js"></script>
+<style>
 
     *,
     *::before,
@@ -20,26 +20,39 @@
         padding: 0;
     }
 
-    body {
-        font-family: system-ui, sans-serif;
-        background: #f4f4f4;
-        padding: 2rem;
+    @media (orientation: landscape) {
+
+        #wc-pane {
+            z-index: 999;
+            position: absolute;
+                top: 0px;
+                left: 0px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 100vh;
+        }
+
+        #footer {
+            display: none;
+        }
+
     }
 
-    /*
-     * Parent grid
-     * -----------
-     * One column
-     * Two rows
-     *
-     * auto rows mean:
-     * every row becomes exactly as tall
-     * as its own content requires.
-     */
-    .grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: 80vh 20vh;
+    @media (orientation: portrait) {
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-rows: 80vh 20vh;;
+        }
+
+        #footer {
+            display: block; /* Hide sidebar if screen is too narrow/tall */
+        }
+
     }
     
 </style>

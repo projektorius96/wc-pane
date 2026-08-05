@@ -17,13 +17,6 @@ const TRUE = (subroutine) => !Boolean(subroutine);
 export const wc_pane = (new URL(import.meta.url)).pathname.split('/').at(-2);
 customElements.define(wc_pane, class extends HTMLElement {
 
-    static observedAttributes = ['children-count']
-    attributeChangedCallback(_, oldValue, newValue) {
-        if (oldValue !== newValue) {
-            this.style.width = `fit-content`;
-        }
-    }
-
     /**
      * 
      * @argument{Object} takes single `options` as its input whose properties are as follows:
