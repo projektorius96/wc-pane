@@ -15,25 +15,19 @@ const [ID, ATTR_TYPE, UI_EVENT] =
 const GUI = new Pane({container: document.body.children[0].children.footer, draggable: true, hidden: false, position: Print.right, opacity: 1})
     GUI.addGroup({name: ID.slider, nodes: GUI.addSection({flex_direction: Print.row})})
 
-let isChecked = false;
 const rangeParams = {
-    min: 0,
-    max: 361,
+    min: 2,
+    max: 360,
     step: 1,
-    value: 1
-}
-const sense = new Map([
-    [false, -1],
-    [true, 1]
-]);
+    value: 2
+};
+rangeParams.max = 360 + rangeParams.min
 
 GUI.find({name: ID.slider})
     .children.child1.append(
         new Input({name: Print.tick1, type: checkbox}),
         new Input({name: ID.range, type: range, attrs: {...rangeParams}})
     );
-/* export const tick =  */GUI.find({name: Print.tick1}).on(UI_EVENT.change, (e)=>{
-    isChecked = e.target.checked;
-})
+export const sliderSwitch = GUI.find({name: Print.tick1})
 export const slider = GUI.find({name: ID.range})
     Object.assign(slider, { rangeParams })
