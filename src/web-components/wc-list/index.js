@@ -1,5 +1,6 @@
 import setStyling from './index.css.js';
 import { buildFromLoopData } from '../../loopData.js';
+import Sortable from 'sortablejs';
 
 export const wc_list = (new URL(import.meta.url)).pathname.split('/').at(-2);
 customElements.define(wc_list, class extends HTMLLIElement {
@@ -25,11 +26,11 @@ customElements.define(wc_list, class extends HTMLLIElement {
          * {@link https://github.com/SortableJS/Sortable?tab=readme-ov-file#options}
          * */ 
         if (attrs.sortableConfig) {
-            import('sortablejs').then(({ Sortable }) => {
+            /* import('sortablejs').then(({ Sortable }) => { */
                 Sortable.create(this, {
                     ...attrs.sortableConfig
                 });
-            })
+            /* }) */
         }
 
         return this;

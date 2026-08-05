@@ -7,6 +7,8 @@ export default function({opacity, hidden, position, minWidth}){
                 flex-direction: column;
             user-select: none;
             overflow: hidden;
+            height:100%;
+            justify-content: space-between; 
             width: fit-content;
             border: 2px solid black;
                 border-radius: 0.5em;
@@ -22,7 +24,7 @@ export default function({opacity, hidden, position, minWidth}){
     if (isMobile) {
         this.dataset.isMobile = isMobile;
         this.style.minWidth = `${100}%`;
-        this.style.position = 'absolute';
+        this.style.position = 'relative';
             this.style.bottom = 0;
     } else {
         this.dataset.isMobile = isMobile;
