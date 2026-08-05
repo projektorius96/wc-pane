@@ -1,1 +1,1 @@
-import './implementation/main.js';
+import './implementation/gui.js';

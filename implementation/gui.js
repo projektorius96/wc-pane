@@ -1,6 +1,6 @@
 import './renderer/init.js'
 import { Pane, Input, Label } from "../src/index.js";
-import { Print } from "./utils";
+import { Print } from "./utils.js";
 
 /**
  * @alias
@@ -18,7 +18,7 @@ const GUI = new Pane({container: document.body.children[0].children.footer, drag
 let isChecked = false;
 const rangeParams = {
     min: 0,
-    max: 360,
+    max: 361,
     step: 1,
     value: 1
 }
@@ -26,22 +26,14 @@ const sense = new Map([
     [false, -1],
     [true, 1]
 ]);
-const slider = GUI.find({name: ID.slider}).children;
-slider.child1.append(
-    new Input({name: Print.tick1, type: checkbox}),
-    new Input({name: ID.range, type: range, attrs: {...rangeParams}})
-);
-GUI.find({name: Print.tick1}).on(UI_EVENT.change, (e)=>{
+
+GUI.find({name: ID.slider})
+    .children.child1.append(
+        new Input({name: Print.tick1, type: checkbox}),
+        new Input({name: ID.range, type: range, attrs: {...rangeParams}})
+    );
+/* export const tick =  */GUI.find({name: Print.tick1}).on(UI_EVENT.change, (e)=>{
     isChecked = e.target.checked;
 })
-GUI.find({name: ID.range}).on(UI_EVENT.input, function() {
-    const 
-        targetElement = document.getElementById("circle_top")
-        ,
-        allPoints = targetElement?.getPoints()
-    ;    
-    // Vekt.js-light API
-    targetElement?.setPoints(
-        allPoints.slice(rangeParams.min, (sense.get(isChecked) * Number(this.value))+1)
-    )
-});
+export const slider = GUI.find({name: ID.range})
+    Object.assign(slider, { rangeParams })
