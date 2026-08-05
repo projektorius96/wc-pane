@@ -1,0 +1,34 @@
+import { ENUMS, deepFreeze } from "./utils.js";
+
+export
+    const
+        userConfig = deepFreeze({
+            canvas: {
+                stage: {
+                    id: ENUMS.ID.header,
+                    scale: 20
+                },
+                layers: {
+                    grid: {
+                        id: ENUMS.CASE.grid,
+                        strokeStyle: ENUMS.COLOR.grey,
+                        hidden: !true,
+                        dotted: !true,
+                        lineWidth: 1,
+                        opacity: 1/4
+                    }
+                }
+            }
+            ,
+            ruler: {
+                overrides: {
+                    labelScaling: 1, /* NOTE (!) # this may be overriden in `implementation/svg/entry.js` */
+                    labelColor: ENUMS.COLOR.black, 
+                    labelOpacity: 1,
+                    
+                    lineScaling: 1, 
+                    lineColor: ENUMS.COLOR.black, 
+                    lineOpacity: 1 /* passing false | 0 - hides the abscissa (X) and ordinate (Y) */  
+                }
+            }
+        });
