@@ -1,20 +1,13 @@
 import setStyling from './index.css.js';
 import { enableDraggingFor } from '../../utils/dragging.js';
 import { applyFlexColumnStyles } from '../../styles/shared.js';
-
-/**
- * @typedef {Function} Subroutine
- * 
- * @param {Subroutine} subroutine
- * @returns converts subroutine's returned `undefined` to `true`_ish_ value.
- */
-const TRUE = (subroutine) => !Boolean(subroutine);
+import { getTagNameFromModuleURL } from '../../utils/customElementTagName.js';
 
 /**
  * @type
  * The `customElements.get(wc_pane)` is top-level parent (a.k.a. "entry") element
  */
-export const wc_pane = (new URL(import.meta.url)).pathname.split('/').at(-2);
+export const wc_pane = getTagNameFromModuleURL(import.meta.url);
 customElements.define(wc_pane, class extends HTMLElement {
 
     /**
@@ -33,24 +26,20 @@ customElements.define(wc_pane, class extends HTMLElement {
      */
     constructor({id = '', container = document.body, draggable = false, hidden = false, position = 'left', opacity = 1, minWidth = 20}) {
 
-        const cssWasApplied = setStyling.call( super() , { hidden, position, opacity, minWidth });
-            if (cssWasApplied){
+        super();
+        setStyling.call(this, { hidden, position, opacity, minWidth });
 
-                this.id = id || this.tagName.toLowerCase();
+        this.id = id || this.tagName.toLowerCase();
 
-                if (container !== document.body) {
-                    container.prepend(this);
-                } else {
-                    document.body.prepend(this);
-                }
+        if (container !== document.body) {
+            container.prepend(this);
+        } else {
+            document.body.prepend(this);
+        }
 
-                if(draggable) {
-                    enableDraggingFor.call(this/* , position */);
-                }
-
-            }
-
-        return this;
+        if (draggable) {
+            enableDraggingFor.call(this);
+        }
 
     }
 
@@ -63,9 +52,9 @@ customElements.define(wc_pane, class extends HTMLElement {
     addSection({sectionCount = 1, accessor = "child", flex_direction = "column"}) {
 
         return (
-            Array.from({length: sectionCount})
-            .map(()=> document.createElement('section') )
-            .map((section, nth)=>{
+            Array.from({length: sectionCount}, (_, nth) => {
+
+                const section = document.createElement('section');
 
                 applyFlexColumnStyles(section);
                 section.style.flexDirection = flex_direction;
@@ -73,9 +62,9 @@ customElements.define(wc_pane, class extends HTMLElement {
 
                 section.setAttribute('id', `${accessor}${accessor !== "parent" ? nth+1 : ""}`);
                 section.setAttribute('name', `${accessor}${accessor !== "parent" ? nth+1 : ""}`);
-                
+
                 return section;
-    
+
             })
         )
 
@@ -93,26 +82,20 @@ customElements.define(wc_pane, class extends HTMLElement {
             if (!collapse) details.setAttribute('open', !collapse);
             if (!label) summary.style.display = 'none';
 
-        if ( TRUE( details.append(...nodes) ) ) {
+        details.append(...nodes);
 
-            if ( nestedUnder !== null && nestedUnder instanceof HTMLElement ) {
-                details.style.width = CSS.percent(100).toString()
-                TRUE( nestedUnder.append(
-                    details
-                ) );
-            } else {
-                TRUE( this.append(
-                    details
-                ) );
-            }
-
-            if ( this.children.length > 0 ) {
-                this.setAttribute('children-count', this.children.length)
-            }
-
-            return this;
-
+        if ( nestedUnder !== null && nestedUnder instanceof HTMLElement ) {
+            details.style.width = CSS.percent(100).toString()
+            nestedUnder.append(details);
+        } else {
+            this.append(details);
         }
+
+        if ( this.children.length > 0 ) {
+            this.setAttribute('children-count', this.children.length)
+        }
+
+        return this;
 
     }
 

@@ -1,8 +1,9 @@
 import setStyling from './index.css.js';
 import { buildFromLoopData } from '../../loopData.js';
 import Sortable from 'sortablejs';
+import { getTagNameFromModuleURL } from '../../utils/customElementTagName.js';
 
-export const wc_list = (new URL(import.meta.url)).pathname.split('/').at(-2);
+export const wc_list = getTagNameFromModuleURL(import.meta.url);
 customElements.define(wc_list, class extends HTMLLIElement {
 
     constructor({ name, attrs = {} }) {
@@ -32,8 +33,6 @@ customElements.define(wc_list, class extends HTMLLIElement {
                 });
             /* }) */
         }
-
-        return this;
 
     }
 
