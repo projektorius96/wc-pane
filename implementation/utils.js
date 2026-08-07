@@ -1,11 +1,3 @@
-export const Print =
-    new Proxy(
-        Object.create(null)
-        , 
-        {
-            get(_, key) {
-                return `${key}`;
-            }
-        }
-    )
-    ;
+import { createPrintProxy } from './printProxy.js';
+
+export const Print = createPrintProxy();

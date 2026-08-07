@@ -1,6 +1,7 @@
 import setStyling from "./index.css.js";
+import { getTagNameFromModuleURL } from '../../utils/customElementTagName.js';
 
-export const wc_input = (new URL(import.meta.url)).pathname.split('/').at(-2);
+export const wc_input = getTagNameFromModuleURL(import.meta.url);
 customElements.define(wc_input, class extends HTMLInputElement {
 
     #setAttributes(el, attrs) {
@@ -11,15 +12,12 @@ customElements.define(wc_input, class extends HTMLInputElement {
 
     constructor({name, type, attrs}) {
 
-        if( setStyling.call( super() ) ) {
+        super();
+        setStyling.call(this);
 
-            this.#setAttributes(this, attrs);
-                this.name = name || type;
-                this.type = type || 'range';
-
-        }
-
-        return this;
+        this.#setAttributes(this, attrs);
+        this.name = name || type;
+        this.type = type || 'range';
 
     }
 
