@@ -1,0 +1,1 @@
+svg-container{scale:1}*,:after,:before{box-sizing:border-box}body{margin:0;padding:0}wc-pane details>summary::marker{content:"✅"}wc-pane details[open]>summary::marker{content:"❎"}
