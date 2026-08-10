@@ -5,8 +5,6 @@ export function enableDraggingFor() {
     function mousemove(e) {
         if (!guiElement) return;
 
-        // if (position === 'right') guiElement.style.right = 'unset';
-
         guiElement.style.position = 'absolute';
         guiElement.style.left = `${e.pageX}px`;
         guiElement.style.top = `${e.pageY}px`;

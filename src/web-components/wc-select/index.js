@@ -1,23 +1,20 @@
 import { buildFromLoopData } from '../../loopData.js';
+import { getTagNameFromModuleURL } from '../../utils/customElementTagName.js';
 
-export const wc_select = (new URL(import.meta.url)).pathname.split('/').at(-2);
+export const wc_select = getTagNameFromModuleURL(import.meta.url);
 customElements.define(wc_select, class extends HTMLSelectElement {
 
     constructor({name, attrs}) {
-        
-        if ( super() ) {
 
-            this.style.width = "100%";
-            this.name = name;
-            
-            if (attrs?.loopData) {
-                buildFromLoopData(this, attrs.loopData);
-            }
+        super();
 
+        this.style.width = "100%";
+        this.name = name;
+
+        if (attrs?.loopData) {
+            buildFromLoopData(this, attrs.loopData);
         }
 
-        return this;
-        
     }
 
 }
