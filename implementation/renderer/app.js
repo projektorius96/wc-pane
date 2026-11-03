@@ -1,7 +1,6 @@
 import './globals.css';
-import { userConfig } from './user-config.js';
-import { defaultVendorFontSize } from './modules/utils.js';
 import { slider, sliderSwitch } from '../gui.js';
+/* import { defaultVendorFontSize } from './modules/utils.js'; */
 
 export default class {
 
@@ -76,7 +75,7 @@ export default class {
 
                                 HTMLCanvas.Helpers.transformPath(path, {
                                     transformations: {
-                                        /* angle = 0, offsetX = 0, offsetY = 0, skew = {X: 0, Y: 0} */// # [OPTIONAL]
+                                        /* [OPTIONAL] */
                                     }
                                     ,
                                     afterTransform: ({ path }) => path.setPoints(

@@ -1,4 +1,24 @@
-import { createPrintProxy } from '../printProxy.js';
+/**
+ * Creates a Proxy-based "print" enum: any property accessed on it simply
+ * returns its own key as a string (e.g. `printProxy.foo === 'foo'`).
+ *
+ * Shared by `implementation/utils.js` and `implementation/renderer/utils.js`
+ * so the same Proxy handler is defined once instead of being duplicated.
+ *
+ * @returns {ProxyHandler<object>} a fresh Proxy instance.
+ */
+export function createPrintProxy() {
+    return new Proxy(
+        Object.create(null)
+        ,
+        {
+            get(_target, key) {
+                return `${key}`;
+            }
+        }
+    );
+}
+
 
 /**
  * Single enum module: Proxy-based ENUM returns property name as string.
@@ -11,16 +31,19 @@ import { createPrintProxy } from '../printProxy.js';
  */
 const Print = createPrintProxy();
 
-const [PRINT, COLOR, SHAPE, UI_EVENT, CASE, ATTRIBUTE, ID] = Array(7).fill(Print);
-const ENUMS = Object.freeze({
-    PRINT,
-    COLOR,
-    SHAPE,
-    UI_EVENT,
-    CASE,
-    ATTRIBUTE,
-    ID,
-});
+const 
+    [PRINT, COLOR, SHAPE, UI_EVENT, CASE, ATTRIBUTE, ID] = Array(7).fill(Print)
+    ,
+    ENUMS = Object.freeze({
+        PRINT,
+        COLOR,
+        SHAPE,
+        UI_EVENT,
+        CASE,
+        ATTRIBUTE,
+        ID,
+    })
+    ;
 
 /**
  * 
